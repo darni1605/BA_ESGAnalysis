@@ -1,7 +1,5 @@
 from flask import Flask, jsonify
-import RAnalysis.rAnalysis
-from importFilesPackages import importData
-from importFilesPackages import importRPackages
+from RAnalysis import rAnalysis
 
 app = Flask(__name__)
 
