@@ -48,5 +48,5 @@ SMB = famaFrench_RiskFactors_df.iloc[:, 1]
 HML = famaFrench_RiskFactors_df.iloc[:, 2]
 riskFree = famaFrench_RiskFactors_df.iloc[:, 3]
 
-companyIdentifier = list(stockPrices_df)
+companyIdentifier = list(stockReturns_df)
 nrOfColumns = len(stockPrices_df.columns)

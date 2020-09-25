@@ -9,7 +9,7 @@ from RAnalysis.RTools.GenerateModels import createDFModel
 
 
 def histogram(dataToPlot, title, xLabel, yLabel):
-    plot.hist(dataToPlot, density=True, range=[-0.0005, 0.0005], bins='auto')
+    plot.hist(dataToPlot, density=True, bins='auto')
     plot.xlabel(xLabel)
     plot.ylabel(yLabel)
     plot.title(title)
@@ -65,6 +65,7 @@ def standardizedResidualDiagram(stock):
                                 xy=(model_fitted_y[i],
                                     model_norm_residuals_abs_sqrt[i]))
     plot.show()
+
 
 def cooksDistance(dataFrame):
     y = dataFrame.columns[0]

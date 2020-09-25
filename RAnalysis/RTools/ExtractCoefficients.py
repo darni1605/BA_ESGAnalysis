@@ -6,21 +6,28 @@ from RAnalysis.RTools.GenerateModels import createRModel
 from ImportFilesPackages.ImportFiles import nrOfColumns, companyIdentifier
 
 
-def extractCoefficients():
+def extractSummaries():
     i = 0
     R = robjects.r
     pandas2ri.activate()
-    coefficients = []
+    summaries = []
     while i < nrOfColumns:
         currentCompanyIdentifier = companyIdentifier[i]
         currentRModel = createRModel(currentCompanyIdentifier)
         if not isinstance(currentRModel, bool):
             summary = R.lm(currentRModel)
-            currentCoefficients = summary.rx2('coefficients')
-            coefficients.append(currentCoefficients)
+            summaries.append(summary)
             i += 1
         else:
             i += 1
+    return summaries
+
+
+def extractCoefficients(summaries):
+    coefficients = []
+    for summary in summaries:
+        currentCoefficients = summary.rx2('coefficients')
+        coefficients.append(currentCoefficients)
     return coefficients
 
 
