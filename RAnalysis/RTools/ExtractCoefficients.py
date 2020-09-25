@@ -1,25 +1,19 @@
 import rpy2.robjects as robjects
-import pandas as pd
 import numpy as np
 from rpy2.robjects import pandas2ri
 from RAnalysis.RTools.GenerateModels import createRModel
-from ImportFilesPackages.ImportFiles import nrOfColumns, companyIdentifier
 
 
-def extractSummaries():
-    i = 0
+# TODO: make list of stocks as parameter to extract summaries
+def extractSummaries(listOfStocks):
     R = robjects.r
     pandas2ri.activate()
     summaries = []
-    while i < nrOfColumns:
-        currentCompanyIdentifier = companyIdentifier[i]
-        currentRModel = createRModel(currentCompanyIdentifier)
+    for stock in listOfStocks:
+        currentRModel = createRModel(stock)
         if not isinstance(currentRModel, bool):
             summary = R.lm(currentRModel)
             summaries.append(summary)
-            i += 1
-        else:
-            i += 1
     return summaries
 
 
@@ -31,14 +25,11 @@ def extractCoefficients(summaries):
     return coefficients
 
 
-def extractESGBetas(coefficients):
+def extractESGBetas(listOfCoefficients):
     ESGBetas = np.empty(0)
-    i = 0
-    while i < len(coefficients):
-        currentCoefficients = coefficients[i]
-        currentESGBeta = currentCoefficients[4]
+    for coefficient in listOfCoefficients:
+        currentESGBeta = coefficient[4]
         ESGBetas = np.append(ESGBetas, currentESGBeta)
-        i += 1
     return ESGBetas
 
 
