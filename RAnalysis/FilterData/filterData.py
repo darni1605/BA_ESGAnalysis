@@ -29,7 +29,7 @@ for df in nonHeteroscedasticityList:
     if df is not None:
         cleanNonHeteroscedasticityList.append(df)
 print('Number of stocks without heteroscedasticity:' + str(len(cleanNonHeteroscedasticityList)))
-# RESULT: Breusch Pagan Test lead to the exclusion of 193 stocks #
+# RESULT: Breusch Pagan Test led to the exclusion of 193 stocks #
 
 # test for multicollinearity and remove columns of dataframes a VIF factor higher than 5 #
 numberOfColumnsBefore = 0

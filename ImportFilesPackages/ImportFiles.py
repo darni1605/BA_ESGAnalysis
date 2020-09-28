@@ -13,6 +13,10 @@ stockReturns_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbei
                               , sep=';', header=0, index_col=0)
 stockReturns_df.replace(r'^\s*$', np.nan, regex=True)
 
+marketPricesReturns = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                  r'Data\CSV-files\SP500_ClosePrice_Return_csv.csv'
+                                  , sep=';', header=0, index_col=0)
+
 ESGScores_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
                            r'Data\CSV-files\ESGScores_Reuters.csv', sep=';', header=0, index_col=0)
 ESGScores_df.replace(r'^\s*$', np.nan, regex=True)
