@@ -1,10 +1,7 @@
-import rpy2.robjects as robjects
-import pandas as pd
 from rpy2.robjects import pandas2ri
-from ImportFilesPackages.ImportRPackages import base, stats, psych
+from ImportFilesPackages.ImportRPackages import base, psych
 from RAnalysis.RTools.GenerateModels import createRModel
-from ImportFilesPackages.ImportFiles import nrOfColumns, stockPrices_df, ESGScores_df, companyIdentifier \
-    , marketPremium, SMB, HML, riskFree
+from ImportFilesPackages.ImportFiles import companyIdentifier
 
 
 # loop through all stocks, create dataframe per stock and print summary of all linear models #
@@ -23,4 +20,4 @@ def printStockRegressionSummary(stock):
 def printDataSetSummary(dataframe):
     pandas2ri.activate()
     r_dataframe = pandas2ri.py2rpy(dataframe)
-    print(psych.describe(r_dataframe))
+    print(psych.describe(r_dataframe).to_string())

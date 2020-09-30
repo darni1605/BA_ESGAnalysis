@@ -1,4 +1,5 @@
 from ImportFilesPackages.ImportFiles import sp500_Industries, stockReturns_df
+from RAnalysis.FilterData.filterData import nonMultiColList
 import pandas as pd
 import numpy as np
 
@@ -35,13 +36,18 @@ def getStockReturnsPerIndustry(industry):
 
 def saveStockReturnsPerIndustry():
     industries = sp500_Industries.iloc[:, 1].unique()
-
+    filteredStockList = []
+    print(nonMultiColList)
+    for stock in nonMultiColList:
+        filteredStockList.append(stock.columns[0])
     for industry in industries:
         currentIndustryGroup = groupPerIndustry(industry)
         industryStockReturns = []
         for stock in currentIndustryGroup:
-            currentStockReturns = stockReturns_df[stock]
-            industryStockReturns.append(currentStockReturns)
+            if stock in filteredStockList:
+                currentStockReturns = stockReturns_df[stock]
+                industryStockReturns.append(currentStockReturns)
         currentIndustryStockReturns = pd.concat(industryStockReturns, axis=1)
         currentIndustryStockReturns.to_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                                           r'Data\CSV-files\StockReturnsPerIndustry\'' + industry + '')
+                                           r'Data\CSV-files\StockReturnsPerIndustry\'' + industry + '.csv'
+                                           , sep=';')

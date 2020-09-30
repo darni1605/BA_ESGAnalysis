@@ -1,7 +1,8 @@
 import numpy as np
 from RAnalysis.FilterData.filterData import nonMultiColList
 from RAnalysis.FilterData.GroupData.splitAccordingToESG import filterESGScores, groupAccordingToAverage
-from ImportFilesPackages.ImportFiles import ESGScores_change_df, marketPricesReturns, stockReturns_df
+from RAnalysis.RTools.PrintRSummary import printDataSetSummary
+from ImportFilesPackages.ImportFiles import marketPricesReturns, stockReturns_df
 from scipy.stats import ttest_1samp
 
 # group all stocks into a below & above ESG market average and test underperformance/outperformance compared to market
@@ -24,6 +25,12 @@ averageHighReturn = np.mean(averageHighGroupReturns)
 medianHighReturn = np.nanmedian(averageHighGroupReturns)
 averageMarketReturn = np.mean(marketReturns)
 medianMarketReturn = np.nanmedian(marketReturns)
+
+print('\n Summary of Low group average returns:')
+printDataSetSummary(averageLowGroupReturns)
+
+print('\n Summary of High group average returns:')
+printDataSetSummary(averageHighGroupReturns)
 
 # H2
 print('\nH2: Is there an underperformance of stocks below market ESG average compared to the market?')

@@ -48,11 +48,9 @@ def groupAccordingToAverage(ESGScoreChanges):
 
 def groupInQuantiles(ESGScoreChanges):
     avgPerStock = getAverageESGForAllStocks(ESGScoreChanges)
-    print(avgPerStock.to_string())
-    print(len(avgPerStock))
     numberOfStocks = len(avgPerStock)
-    oneThirdQuantile = np.nanquantile(avgPerStock, 1/3)
-    twoThirdQuantile = np.nanquantile(avgPerStock, 2/3)
+    oneThirdQuantile = np.nanquantile(avgPerStock, 1 / 3)
+    twoThirdQuantile = np.nanquantile(avgPerStock, 2 / 3)
     lowGroup = []
     mediumGroup = []
     highGroup = []
