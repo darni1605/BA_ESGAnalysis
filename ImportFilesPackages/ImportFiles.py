@@ -17,13 +17,46 @@ marketPricesReturns = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelora
                                   r'Data\CSV-files\SP500_ClosePrice_Return_csv.csv'
                                   , sep=';', header=0, index_col=0)
 
-ESGScores_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                           r'Data\CSV-files\ESGScores_Reuters.csv', sep=';', header=0, index_col=0)
-ESGScores_df.replace(r'^\s*$', np.nan, regex=True)
+OverallESGScores_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                  r'Data\CSV-files\Reuters_OverallESGScores_csv.csv'
+                                  , sep=';', header=0, index_col=0)
+OverallESGScores_df.replace(r'^\s*$', np.nan, regex=True)
 
-ESGScores_change_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                                  r'Data\CSV-files\ESGScores_change_csv.csv', sep=';', header=0, index_col=0)
-ESGScores_change_df.replace(r'^\s*$', np.nan, regex=True)
+SocialScores_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                              r'Data\CSV-files\Reuters_SocialScores_csv.csv'
+                              , sep=';', header=0, index_col=0)
+SocialScores_df.replace(r'^\s*$', np.nan, regex=True)
+
+EnvironmentScores_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                   r'Data\CSV-files\Reuters_EnvironmentScores_csv.csv'
+                                   , sep=';', header=0, index_col=0)
+EnvironmentScores_df.replace(r'^\s*$', np.nan, regex=True)
+
+GovernanceScore_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                 r'Data\CSV-files\Reuters_GovernanceScores_csv.csv'
+                                 , sep=';', header=0, index_col=0)
+GovernanceScore_df.replace(r'^\s*$', np.nan, regex=True)
+
+
+OverallESGScores_changes_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                          r'Data\CSV-files\Reuters_OverallESGScores_changes_csv.csv', sep=';', header=0,
+                                          index_col=0)
+OverallESGScores_changes_df.replace(r'^\s*$', np.nan, regex=True)
+
+EnvironmentScores_changes_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                           r'Data\CSV-files\Reuters_EnvironmentScores_changes_csv.csv', sep=';',
+                                           header=0, index_col=0)
+EnvironmentScores_changes_df.replace(r'^\s*$', np.nan, regex=True)
+
+SocialScores_changes_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                      r'Data\CSV-files\Reuters_SocialScores_changes_csv.csv', sep=';',
+                                      header=0, index_col=0)
+SocialScores_changes_df.replace(r'^\s*$', np.nan, regex=True)
+
+GovernanceScores_changes_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                          r'Data\CSV-files\Reuters_GovernanceScores_changes_csv.csv', sep=';',
+                                          header=0, index_col=0)
+GovernanceScores_changes_df.replace(r'^\s*$', np.nan, regex=True)
 
 famaFrench_RiskFactors_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
                                         r'Data\CSV-files\FamaFrench_RiskFactors_csv.csv'

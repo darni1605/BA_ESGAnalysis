@@ -1,1 +1,1 @@
-from RAnalysis.Hypotheses import hypothesis4
+import RAnalysis.Hypotheses.hypothesis5

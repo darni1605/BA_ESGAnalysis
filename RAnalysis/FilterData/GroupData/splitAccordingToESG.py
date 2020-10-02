@@ -1,6 +1,6 @@
 import numpy as np
 from math import isnan
-from ImportFilesPackages.ImportFiles import ESGScores_change_df
+from ImportFilesPackages.ImportFiles import OverallESGScores_df
 
 
 # Split the dataset into three groups: low, medium & high ESG score
@@ -11,7 +11,7 @@ def filterESGScores(stockModelList):
     ESGListToExamine = []
     for i in range(0, len(stockModelList)):
         ESGListToExamine.append(stockModelList[i].columns[4])
-    filteredESGDf = ESGScores_change_df[ESGListToExamine]
+    filteredESGDf = OverallESGScores_df[ESGListToExamine]
     return filteredESGDf
 
 
@@ -22,7 +22,7 @@ def getAverageESGForAllStocks(ESGScoreChanges):
 
 def getESGMarketAverage(ESGScoreChanges):
     avgPerStock = getAverageESGForAllStocks(ESGScoreChanges)
-    numberOfAvg = len(ESGScoreChanges)
+    numberOfAvg = len(avgPerStock)
     sumOfAvg = 0
     for avg in avgPerStock:
         if not isnan(avg):

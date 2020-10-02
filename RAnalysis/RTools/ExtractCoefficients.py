@@ -5,12 +5,12 @@ from RAnalysis.RTools.GenerateModels import createRModel
 
 
 # TODO: make list of stocks as parameter to extract summaries
-def extractSummaries(listOfStocks):
+def extractSummaries(listOfStocks, level):
     R = robjects.r
     pandas2ri.activate()
     summaries = []
     for stock in listOfStocks:
-        currentRModel = createRModel(stock)
+        currentRModel = createRModel(stock, level)
         if not isinstance(currentRModel, bool):
             summary = R.lm(currentRModel)
             summaries.append(summary)

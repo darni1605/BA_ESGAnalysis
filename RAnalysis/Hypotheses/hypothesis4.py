@@ -52,5 +52,7 @@ twoSampleTTest(avgHighGroupReturns, avgLowGroupReturns, False, isOneTailed)
 print('\nHigh vs Medium group returns:')
 twoSampleTTest(avgHighGroupReturns, avgMediumGroupReturns, False, isOneTailed)
 
-print('\nRESULT1: For all three tests no evidence is found to support the claim that higher average Scores lead to '
-      'higher stock returns')
+print('''\nRESULT1: For all three tests no evidence is found to support the claim that higher average Scores lead to 
+higher stock returns. Again it is interesting to note that the highest mean and median return are found in the low 
+group followed by the medium group and on the last place the high group. This supports the findings from hypothesis 1 
+(negative correlation between ESG scores and stock returns)''')

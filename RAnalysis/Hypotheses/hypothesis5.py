@@ -3,9 +3,9 @@ from ImportFilesPackages.ImportFiles import listOfStocksPerIndustry, sp500_Indus
 from RAnalysis.RTools.ExtractCoefficients import extractSummaries, extractCoefficients, extractESGBetas, excludeOutliers
 from RAnalysis.RTools.tTest import oneSampleTTest
 
+# TODO: update saved industry csv files
 
 # Display amount of stocks and number of data points per industry
-from RAnalysis.RTools.PlotGraphs import histogram, cooksDistance
 
 industryNames = sp500_Industries.iloc[:, 1].unique()
 
@@ -24,7 +24,7 @@ for industry in listOfStocksPerIndustry:
     currentListOfStockNames = []
     for stock in industry:
         currentListOfStockNames.append(stock)
-    currentExtractedSummaries = extractSummaries(currentListOfStockNames)
+    currentExtractedSummaries = extractSummaries(currentListOfStockNames, 1)
     currentExtractedCoefficients = extractCoefficients(currentExtractedSummaries)
     currentExtractedESGBetas = extractESGBetas(currentExtractedCoefficients)
     listOfExtractedESGBetas.append(currentExtractedESGBetas)
@@ -63,65 +63,86 @@ utilitiesESG = listOfExtractedESGBetas[10]
 utilitiesESG = utilitiesESG[~np.isnan(utilitiesESG)]
 utWithoutOutliers = excludeOutliers(utilitiesESG)
 
-print('\n T test for industry Communication Services')
+print('\nT test for industry Communication Services')
 oneSampleTTest(communicationServicesESG, 0.0)
 oneSampleTTest(comSerWithoutOutliers, 0.0)
-print('The exclusion of outliers leads to a smaller statistical significance')
+print('With outliers: no statistical significance supporting the difference of ESG betas different from zero')
+print('Without outliers: 99% confidence for a difference to zero')
+print('Mean and average smaller than zero --> indicates negative correlation')
 
-print('\n T test for industry Consumer Discretionary')
+print('\nT test for industry Consumer Discretionary')
 oneSampleTTest(consumerDiscretionaryESG, 0.0)
 oneSampleTTest(conDisWithoutOutliers, 0.0)
-print('Without outliers, the ESG beta is no longer statistically significant')
+print('With and without outliers ESG beta statistically different from zero with confidence level 99%')
+print('Mean and average smaller than zero --> indicates negative correlation')
 
-print('\n T test for industry Consumer Staples')
+print('\nT test for industry Consumer Staples')
 oneSampleTTest(consumerStaplesESG, 0.0)
 oneSampleTTest(conStaWithoutOutliers, 0.0)
-print('Without outliers the difference to zero is less significant')
+print('With outliers: no statistical significance for a difference to zero')
+print('Without outliers: 90% confidence for a difference to zero')
+print('Mean and average smaller than zero --> indicates negative correlation')
 
-print('\n T test for industry Energy')
+print('\nT test for industry Energy')
 oneSampleTTest(energyESG, 0.0)
 oneSampleTTest(enWithoutOutliers, 0.0)
-print('Without outliers the difference to zero is much more significant')
+print('Has no outliers: 95% confidence for a difference to zero')
+print('Mean and average smaller than zero --> indicates negative correlation')
 
-print('\n T test for industry Financials')
+print('\nT test for industry Financials')
 oneSampleTTest(financialsESG, 0.0)
 oneSampleTTest(finWithoutOutliers, 0.0)
-print('Without outliers the difference to zero is less significant')
+print('With outliers: 95% confidence for a difference to zero')
+print('Without outliers: 99% confidence for a difference to zero')
+print('Mean and average smaller than zero --> indicates negative correlation')
 
-print('\n T test for industry Health Care')
+print('\nT test for industry Health Care')
 oneSampleTTest(healthCareESG, 0.0)
 oneSampleTTest(heCaWithoutOutliers, 0.0)
-print('Without outliers the difference to zero has more or less the same significance')
+print('With outliers: no statistical significance for a difference to zero')
+print('Without outliers: 99% confidence for a difference to zero')
+print('Mean and average smaller than zero --> indicates negative correlation')
 
-print('\n T test for industry Industrials')
+print('\nT test for industry Industrials')
 oneSampleTTest(industrialsESG, 0.0)
 oneSampleTTest(indWithoutOutliers, 0.0)
-print('Without outliers the difference is statistically significant on a confidence level of 90%')
+print('With and without outliers ESG beta statistically different from zero with confidence level 99%')
+print('Mean and average smaller than zero --> indicates negative correlation')
 
-print('\n T test for industry Information Technology')
+print('\nT test for industry Information Technology')
 oneSampleTTest(informationTechnologyESG, 0.0)
 oneSampleTTest(itWithoutOutliers, 0.0)
-print('Without outliers the difference to zero is much more significant')
+print('With outliers: no statistical significance for a difference to zero')
+print('Without outliers: 99% confidence for a difference to zero')
+print('Mean and average smaller than zero --> indicates negative correlation')
 
-print('\n T test for industry Materials')
+print('\nT test for industry Materials')
 oneSampleTTest(materialsESG, 0.0)
 oneSampleTTest(matWithoutOutliers, 0.0)
-print('Without outliers the difference is statistically significant on a confidence level of 90%')
+print('With and without outliers ESG beta not statistically different from zero')
+print('Mean and average smaller than zero --> indicates negative correlation')
 
-print('\n T test for industry Real Estate')
+print('\nT test for industry Real Estate')
 oneSampleTTest(realEstateESG, 0.0)
 oneSampleTTest(reEsWithoutOutliers, 0.0)
-print('Without outliers the difference is statistically significant on a confidence level of 95%')
+print('With outliers: 95% confidence for a difference to zero')
+print('Without outliers: 99% confidence for a difference to zero')
+print('Mean and average smaller than zero --> indicates negative correlation')
 
-print('\n T test for industry Utilities')
+print('\nT test for industry Utilities')
 oneSampleTTest(utilitiesESG, 0.0)
 oneSampleTTest(utWithoutOutliers, 0.0)
-print('Without outliers the difference to zero is less significant')
+print('Has no outliers: there is evidence for difference to zero on a 90% confidence level')
+print('Mean and average smaller than zero --> indicates negative correlation')
 
-print('\nRESULT1: The average and median ESG beta is basically for all industries greater than zero')
-print('RESULT2: With outliers, all ESG betas of the industries except the Consumer Discretionary sector are not '
-      'significantly different from zero')
-print('RESULT3: With outliers, for the Consumer Discretionary the ESG beta is significantly different from zero with '
-      'a 90% confidence level')
-print('RESULT4: Without outliers, the overall results are not improved as some industries get more significant and '
-      'some less.')
+print('\nRESULT 1: The average and median ESG beta are for all industries smaller than zero')
+print('RESULT 2: With outliers, the ESG betas of all industries except Communication Services, Consumer Staples, '
+      'Health Care, IT and Materials are statistically different from zero')
+print('RESULT 3: Without outliers, the ESG betas of all industries except Materials are significantly different from '
+      'zero')
+print('RESULT 4: With outliers, in the Consumer Staples industry with a ESG beta of -0.000392 the ESG ratings seem to '
+      'have the largest impact, the least impact is in IT with a slightly positive beta of 0.000034.')
+print('RESULT 5: Without outliers, the lowest beta is in the energy industry with a mean of -0.000303. The highest '
+      'beta has Materials with -0.000047.')
+print('RESULT 6: Again the findings from the hypothesis before are in line with the findings of this hypothesis --> '
+      'negative correlation ESG ratings & stock return')

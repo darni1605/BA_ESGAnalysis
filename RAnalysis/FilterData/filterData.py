@@ -7,7 +7,7 @@ from RAnalysis.RTools.GenerateModels import createDFModel
 
 listDf = []
 for stock in companyIdentifier:
-    df = createDFModel(stock)
+    df = createDFModel(stock, 1)
     listDf.append(df)
 normalListDf = []
 for df in listDf:

@@ -9,17 +9,18 @@ from RAnalysis.FilterData.filterData import nonMultiColList
 from RAnalysis.RTools.PlotGraphs import histogram
 
 listOfSurvivors = []
-print(nonMultiColList)
 for stock in nonMultiColList:
     listOfSurvivors.append(stock.columns[0])
-extractedSummaries = extractSummaries(listOfSurvivors)
+extractedSummaries = extractSummaries(listOfSurvivors, 1)
 extractedCoefficients = extractCoefficients(extractedSummaries)
 extractedESGBetas = extractESGBetas(extractedCoefficients)
 extractedESGBetas = extractedESGBetas[~np.isnan(extractedESGBetas)]
 ESGBetasWithoutOutliers = excludeOutliers(extractedESGBetas)
 
 medianESGBeta = np.nanmedian(extractedESGBetas)
-averageESGBeta = np.nanaverage(extractedESGBetas)
+averageESGBeta = np.nanmean(extractedESGBetas)
+medianESGWithoutOutliers = np.nanmedian(ESGBetasWithoutOutliers)
+averageESGWithoutOutliers = np.nanmean(ESGBetasWithoutOutliers)
 tTest1 = ttest_1samp(extractedESGBetas, 0.0)
 tTest2 = ttest_1samp(ESGBetasWithoutOutliers, 0.0)
 
@@ -36,10 +37,12 @@ printDataSetSummary(ESGBetas2)
 #  and where there are more ESG scores than returns
 print('\nH1: The distribution of ESG Betas is significantly different from zero')
 print('t-statistic = %6.3f pValue = %6.4f' % tTest1)
+print('Median of all ESG Betas: %6.6f, average of all ESG betas: %6.6f' % (medianESGBeta, averageESGBeta))
 print('t-statistic = %6.3f pValue = %6.4f' % tTest2)
-print('Median of all ESG Betas: ' + str(medianESGBeta))
-print('Average of all ESG Betas: ' + str(averageESGBeta))
+print('Median of all ESG Betas: %6.6f, average of all ESG betas: %6.6f'
+      % (medianESGWithoutOutliers, averageESGWithoutOutliers))
 # histogram(extractedESGBetas, 'Distribution of ESG Betas', 'ESG Betas', 'Frequency')
 
-print('RESULT 1: With Outliers, ESG Beta distribution not significantly different from zero')
-print('RESULT 2: Without Outliers, ESG Beta distribution significantly different from zero with 99% confidence')
+print('''RESULT: With and without outliers, the ESG beta has a statistically significant difference to zero on a 99%
+      confidence level. Both the median and the mean are negative which indicates an inverse relationship between
+      stock returns and ESG ratings.''')

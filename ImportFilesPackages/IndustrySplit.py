@@ -37,7 +37,6 @@ def getStockReturnsPerIndustry(industry):
 def saveStockReturnsPerIndustry():
     industries = sp500_Industries.iloc[:, 1].unique()
     filteredStockList = []
-    print(nonMultiColList)
     for stock in nonMultiColList:
         filteredStockList.append(stock.columns[0])
     for industry in industries:
