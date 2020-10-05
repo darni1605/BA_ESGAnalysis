@@ -1,10 +1,17 @@
 import numpy as np
 from math import isnan
-from ImportFilesPackages.ImportFiles import OverallESGScores_df
+from ImportFilesPackages.ImportFiles import OverallESGScores_df, stockReturns_df
 
 
 # Split the dataset into three groups: low, medium & high ESG score
 # E.g. low: 1/3 quantile of all ESG Score
+
+def filterReturns(stockModelList):
+    tickerList = []
+    for i in range(0, len(stockModelList)):
+        tickerList.append(stockModelList[i].columns[0])
+    filteredReturns = stockReturns_df[tickerList].copy()
+    return filteredReturns
 
 
 def filterESGScores(stockModelList):

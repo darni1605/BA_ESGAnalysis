@@ -59,3 +59,10 @@ def createDFModel(stock, level):
     df = pd.concat(data, axis=1)
 
     return df
+
+
+def createDFModels(listOfStocks, level):
+    modelList = []
+    for stock in listOfStocks:
+        modelList.append(createDFModel(stock, level))
+    return modelList

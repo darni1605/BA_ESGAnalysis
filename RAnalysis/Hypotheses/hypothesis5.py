@@ -63,6 +63,8 @@ utilitiesESG = listOfExtractedESGBetas[10]
 utilitiesESG = utilitiesESG[~np.isnan(utilitiesESG)]
 utWithoutOutliers = excludeOutliers(utilitiesESG)
 
+print('\nH5: Each industry has a different ESG beta and all betas are statistically different from zero')
+
 print('\nT test for industry Communication Services')
 oneSampleTTest(communicationServicesESG, 0.0)
 oneSampleTTest(comSerWithoutOutliers, 0.0)

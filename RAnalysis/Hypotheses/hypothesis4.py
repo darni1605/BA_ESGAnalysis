@@ -38,6 +38,8 @@ printDataSetSummary(avgMediumGroupReturns)
 print('\nSummary of High group average Returns:')
 printDataSetSummary(avgHighGroupReturns)
 
+# TODO: check for normality again
+
 print('\nH4: The stocks with on average higher ESG scores outperform stocks with on average lower ESG scores')
 # REMARK: divide pValue for all test by 2 since one-tailed
 # twoSampleTTest: expected bigger sample first
