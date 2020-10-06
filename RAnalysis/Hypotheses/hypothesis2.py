@@ -1,6 +1,7 @@
 import numpy as np
 from RAnalysis.FilterData.filterData import nonMultiColList
 from RAnalysis.FilterData.GroupData.splitAccordingToESG import filterReturns, filterESGScores, groupAccordingToAverage
+from RAnalysis.FilterData.testFunctions.testGaussianNormality import isNormal
 from RAnalysis.RTools.PrintRSummary import printDataSetSummary
 from ImportFilesPackages.ImportFiles import marketPricesReturns, stockReturns_df
 from scipy.stats import ttest_1samp
@@ -37,7 +38,10 @@ printDataSetSummary(averageLowGroupReturns)
 print('\n Summary of High group average returns:')
 printDataSetSummary(averageHighGroupReturns)
 
-# TODO: check calculation of averages --> problem is market return according to all 503 stocks not 187
+print(isNormal(averageMarketReturns, 0.95))
+print(isNormal(averageLowGroupReturns, 0.95))
+print(isNormal(averageHighGroupReturns, 0.95))
+
 # H2
 print('\nH2: Is there an underperformance of stocks below market ESG average compared to the market?')
 print('\nOne sample test: average returns of low group vs. average market return')

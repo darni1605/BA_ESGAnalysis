@@ -5,15 +5,15 @@ from ImportFilesPackages.ImportFiles import companyIdentifier
 
 
 # loop through all stocks, create dataframe per stock and print summary of all linear models #
-def printAllRegressionSummaries():
+def printAllRegressionSummaries(level):
     i = 0
     while i < len(companyIdentifier):
-        currentRModel = createRModel(companyIdentifier[i])
+        currentRModel = createRModel(companyIdentifier[i], level)
         print(base.summary(currentRModel))
 
 
-def printStockRegressionSummary(stock):
-    rModel = createRModel(stock)
+def printStockRegressionSummary(stock, level):
+    rModel = createRModel(stock, level)
     print(base.summary(rModel))
 
 

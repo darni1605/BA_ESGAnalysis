@@ -1,18 +1,17 @@
 import rpy2.robjects as robjects
 import numpy as np
 from rpy2.robjects import pandas2ri
+from ImportFilesPackages.ImportRPackages import base
 from RAnalysis.RTools.GenerateModels import createRModel
 
 
-# TODO: make list of stocks as parameter to extract summaries
 def extractSummaries(listOfStocks, level):
-    R = robjects.r
     pandas2ri.activate()
     summaries = []
     for stock in listOfStocks:
         currentRModel = createRModel(stock, level)
         if not isinstance(currentRModel, bool):
-            summary = R.lm(currentRModel)
+            summary = base.summary(currentRModel)
             summaries.append(summary)
     return summaries
 
@@ -28,9 +27,34 @@ def extractCoefficients(summaries):
 def extractESGBetas(listOfCoefficients):
     ESGBetas = np.empty(0)
     for coefficient in listOfCoefficients:
-        currentESGBeta = coefficient[4]
-        ESGBetas = np.append(ESGBetas, currentESGBeta)
+        try:
+            currentESGBeta = coefficient[4, 0]
+            ESGBetas = np.append(ESGBetas, currentESGBeta)
+        except IndexError:
+            pass
     return ESGBetas
+
+
+def extractESGBetasPValue(listOfCoefficients):
+    pValues = np.empty(0)
+    for coefficient in listOfCoefficients:
+        try:
+            currentPValue = coefficient[4, 3]
+            pValues = np.append(pValues, currentPValue)
+        except IndexError:
+            pass
+    return pValues
+
+
+def countSignificantFactors(pValueList, significanceLevel):
+    significanceCount = 0
+    noSignificanceCount = 0
+    for pValue in pValueList:
+        if pValue <= significanceLevel:
+            significanceCount += 1
+        else:
+            noSignificanceCount += 1
+    return significanceCount, noSignificanceCount
 
 
 def excludeOutliers(data):

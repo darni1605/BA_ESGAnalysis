@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import ttest_1samp
 from RAnalysis.RTools.PrintRSummary import printDataSetSummary
-from RAnalysis.RTools.ExtractCoefficients import extractSummaries, extractCoefficients, extractESGBetas, excludeOutliers
+from RAnalysis.RTools.ExtractCoefficients import *
 from RAnalysis.FilterData.filterData import nonMultiColList
 from RAnalysis.FilterData.testFunctions.testGaussianNormality import isNormal
 
@@ -14,8 +14,10 @@ for stock in nonMultiColList:
     listOfSurvivors.append(stock.columns[0])
 extractedSummaries = extractSummaries(listOfSurvivors, 1)
 extractedCoefficients = extractCoefficients(extractedSummaries)
+extractedESGBetaPValues = extractESGBetasPValue(extractedCoefficients)
+significanceCount, noSignificanceCount = countSignificantFactors(extractedESGBetaPValues, 0.05)
+percentageOfSignificance = 100 * significanceCount / (significanceCount + noSignificanceCount)
 extractedESGBetas = extractESGBetas(extractedCoefficients)
-extractedESGBetas = extractedESGBetas[~np.isnan(extractedESGBetas)]
 ESGBetasWithoutOutliers = excludeOutliers(extractedESGBetas)
 
 medianESGBeta = np.nanmedian(extractedESGBetas)
@@ -53,3 +55,9 @@ if isNormal(ESGBetasWithoutOutliers, 0.95):
 else:
     print('RESULT: Without outliers, the distribution of ESG betas does not follow normality and can therefore not be '
           'tested.')
+
+print('\nFor how many stocks is the ESG factor individually significant?')
+print('Stocks with significant ESG betas: %3d' % significanceCount)
+print('Stock without significant ESG betas: %2d' % noSignificanceCount)
+print('Percentage of significant ESG betas: %6.2f%%' % percentageOfSignificance)
+
