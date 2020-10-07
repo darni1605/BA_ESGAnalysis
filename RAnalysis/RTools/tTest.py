@@ -22,4 +22,4 @@ def twoSampleTTest(arr1, arr2, hasEqualVar, isOneTailed):
         pValue = pValue / 2
     print('t-statistic = %6.4f pValue = %6.6f' % (tStat, pValue))
     print('Median of 1st sample: %6.6f & Median of 2nd sample: %6.6f' % (median1, median2))
-    print('Average of 1st sample: %6.6f & Median of 2nd sample: %6.6f' % (avg1, avg2))
+    print('Average of 1st sample: %6.6f & Average of 2nd sample: %6.6f' % (avg1, avg2))

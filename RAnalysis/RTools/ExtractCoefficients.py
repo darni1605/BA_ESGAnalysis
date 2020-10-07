@@ -63,7 +63,7 @@ def excludeOutliers(data):
     IQR = Q3 - Q1
 
     i = 0
-    while i < data.size - 1:
+    while i < len(data) - 1:
         if data[i] == np.nan:
             i += 1
         if (data[i] > (Q3 + 1.5 * IQR)) or (data[i] < (Q1 - 1.5 * IQR)):

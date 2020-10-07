@@ -1,6 +1,8 @@
 from ImportFilesPackages.ImportFiles import listOfStocksPerIndustry, stockReturns_df
 from RAnalysis.RTools.GenerateModels import createDFModels
 from RAnalysis.FilterData.GroupData.splitAccordingToESG import filterESGScores, groupAccordingToAverage
+from RAnalysis.RTools.Performance import countOutUnderPerformance
+from RAnalysis.RTools.ConductHypoTest import *
 
 communicationServicesStocks = listOfStocksPerIndustry[0].columns
 consumerDiscretionaryStocks = listOfStocksPerIndustry[1].columns
@@ -50,41 +52,50 @@ lowGroup9, highGroup9 = groupAccordingToAverage(filteredESG9)
 lowGroup10, highGroup10 = groupAccordingToAverage(filteredESG10)
 lowGroup11, highGroup11 = groupAccordingToAverage(filteredESG11)
 
-# write functions to get sublist from stockReturns_df, to generate an average column, average returns and np.isnan
+print('\nH6: Is there an underperformance of stocks below industry ESG average compared to the industry?')
+print('\nCommunication Services')
+conductHypoTest(lowGroup1, communicationServicesModels, isLow=True)
+print('\nConsumer Discretionary')
+conductHypoTest(lowGroup2, consumerDiscretionaryModels, isLow=True)
+print('\nConsumer Staples')
+conductHypoTest(lowGroup3, consumerStaplesModels, isLow=True)
+print('\nEnergy')
+conductHypoTest(lowGroup4, energyModels, isLow=True)
+print('\nFinancials')
+conductHypoTest(lowGroup5, financialsModels, isLow=True)
+print('\nHealth Care')
+conductHypoTest(lowGroup6, healthCareModels, isLow=True)
+print('\nIndustrials')
+conductHypoTest(lowGroup7, industrialsModels, isLow=True)
+print('\nInformation Technology')
+conductHypoTest(lowGroup8, informationTechnologyModels, isLow=True)
+print('\nMaterials')
+conductHypoTest(lowGroup9, materialsModels, isLow=True)
+print('\nReal Estate')
+conductHypoTest(lowGroup10, realEstateModels, isLow=True)
+print('\nUtilities')
+conductHypoTest(lowGroup11, utilitiesModels, isLow=True)
 
-lowGroupReturns1, highGroupReturns1 = (stockReturns_df[lowGroup1].copy(), stockReturns_df[highGroup1].copy())
-lowGroupReturns2, highGroupReturns2 = (stockReturns_df[lowGroup2].copy(), stockReturns_df[highGroup2].copy())
-lowGroupReturns3, highGroupReturns3 = (stockReturns_df[lowGroup3].copy(), stockReturns_df[highGroup3].copy())
-lowGroupReturns4, highGroupReturns4 = (stockReturns_df[lowGroup4].copy(), stockReturns_df[highGroup4].copy())
-lowGroupReturns5, highGroupReturns5 = (stockReturns_df[lowGroup5].copy(), stockReturns_df[highGroup5].copy())
-lowGroupReturns6, highGroupReturns6 = (stockReturns_df[lowGroup6].copy(), stockReturns_df[highGroup6].copy())
-lowGroupReturns7, highGroupReturns7 = (stockReturns_df[lowGroup7].copy(), stockReturns_df[highGroup7].copy())
-lowGroupReturns8, highGroupReturns8 = (stockReturns_df[lowGroup8].copy(), stockReturns_df[highGroup8].copy())
-lowGroupReturns9, highGroupReturns9 = (stockReturns_df[lowGroup9].copy(), stockReturns_df[highGroup9].copy())
-lowGroupReturns10, highGroupReturns10 = (stockReturns_df[lowGroup10].copy(), stockReturns_df[highGroup10].copy())
-lowGroupReturns11, highGroupReturns11 = (stockReturns_df[lowGroup11].copy(), stockReturns_df[highGroup11].copy())
-
-avgLowGroupReturns1, avgHighGroupReturns1 = (lowGroupReturns1.mean(axis=1).copy(),
-                                             highGroupReturns1.mean(axis=1).copy())
-avgLowGroupReturns2, avgHighGroupReturns2 = (lowGroupReturns2.mean(axis=1).copy(),
-                                             highGroupReturns2.mean(axis=1).copy())
-avgLowGroupReturns3, avgHighGroupReturns3 = (lowGroupReturns3.mean(axis=1).copy(),
-                                             highGroupReturns3.mean(axis=1).copy())
-avgLowGroupReturns4, avgHighGroupReturns4 = (lowGroupReturns4.mean(axis=1).copy(),
-                                             highGroupReturns4.mean(axis=1).copy())
-avgLowGroupReturns5, avgHighGroupReturns5 = (lowGroupReturns5.mean(axis=1).copy(),
-                                             highGroupReturns5.mean(axis=1).copy())
-avgLowGroupReturns6, avgHighGroupReturns6 = (lowGroupReturns6.mean(axis=1).copy(),
-                                             highGroupReturns6.mean(axis=1).copy())
-avgLowGroupReturns7, avgHighGroupReturns7 = (lowGroupReturns7.mean(axis=1).copy(),
-                                             highGroupReturns7.mean(axis=1).copy())
-avgLowGroupReturns8, avgHighGroupReturns8 = (lowGroupReturns8.mean(axis=1).copy(),
-                                             highGroupReturns8.mean(axis=1).copy())
-avgLowGroupReturns9, avgHighGroupReturns9 = (lowGroupReturns9.mean(axis=1).copy(),
-                                             highGroupReturns9.mean(axis=1).copy())
-avgLowGroupReturns10, avgHighGroupReturns10 = (lowGroupReturns10.mean(axis=1).copy(),
-                                               highGroupReturns10.mean(axis=1).copy())
-avgLowGroupReturns11, avgHighGroupReturns11 = (lowGroupReturns11.mean(axis=1).copy(),
-                                               highGroupReturns11.mean(axis=1).copy())
-
-
+print('\nH7: Is there an outperformance of stocks above industry ESG average compared to the industry?')
+print('\nCommunication Services')
+conductHypoTest(highGroup1, communicationServicesModels, isLow=False)
+print('\nConsumer Discretionary')
+conductHypoTest(highGroup2, consumerDiscretionaryModels, isLow=False)
+print('\nConsumer Staples')
+conductHypoTest(highGroup3, consumerStaplesModels, isLow=False)
+print('\nEnergy')
+conductHypoTest(highGroup4, energyModels, isLow=False)
+print('\nFinancials')
+conductHypoTest(highGroup5, financialsModels, isLow=False)
+print('\nHealth Care')
+conductHypoTest(highGroup6, healthCareModels, isLow=False)
+print('\nIndustrials')
+conductHypoTest(highGroup7, industrialsModels, isLow=False)
+print('\nInformation Technology')
+conductHypoTest(highGroup8, informationTechnologyModels, isLow=False)
+print('\nMaterials')
+conductHypoTest(highGroup9, materialsModels, isLow=False)
+print('\nReal Estate')
+conductHypoTest(highGroup10, realEstateModels, isLow=False)
+print('\nUtilities')
+conductHypoTest(highGroup11, utilitiesModels, isLow=False)

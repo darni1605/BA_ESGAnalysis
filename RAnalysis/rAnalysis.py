@@ -1,2 +1,5 @@
-import RAnalysis.Hypotheses.hypothesis1
+import RAnalysis.Hypotheses.hypothesis6
+
+
+
 
