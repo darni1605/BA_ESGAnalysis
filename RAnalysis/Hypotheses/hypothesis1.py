@@ -1,18 +1,15 @@
-import numpy as np
 import pandas as pd
 from scipy.stats import ttest_1samp
 from RAnalysis.RTools.PrintRSummary import printDataSetSummary
 from RAnalysis.RTools.ExtractCoefficients import *
-from RAnalysis.FilterData.filterData import nonMultiColList
+from RAnalysis.FilterData.filterDataLevel1 import nonMultiColList
 from RAnalysis.FilterData.testFunctions.testGaussianNormality import isNormal
 
 # extract the stock tickers of all data filtering survivors #
 from RAnalysis.RTools.PlotGraphs import histogram
 
-listOfSurvivors = []
-for stock in nonMultiColList:
-    listOfSurvivors.append(stock.columns[0])
-extractedSummaries = extractSummaries(listOfSurvivors, 1)
+listOfDfs = dropOnlyNanColumns(nonMultiColList)
+extractedSummaries = extractSummaries(listOfDfs)
 extractedCoefficients = extractCoefficients(extractedSummaries)
 extractedESGBetaPValues = extractESGBetasPValue(extractedCoefficients)
 significanceCount, noSignificanceCount = countSignificantFactors(extractedESGBetaPValues, 0.05)
@@ -26,9 +23,6 @@ medianESGWithoutOutliers = np.nanmedian(ESGBetasWithoutOutliers)
 averageESGWithoutOutliers = np.nanmean(ESGBetasWithoutOutliers)
 tTest1 = ttest_1samp(extractedESGBetas, 0.0)
 tTest2 = ttest_1samp(ESGBetasWithoutOutliers, 0.0)
-
-# TODO: normality test & do for individual stocks to confirm H1
-#  --> if for a large amount of individual stocks the beta is significant (and negative as well than more evidence)
 
 ESGBetas1 = pd.DataFrame(extractedESGBetas)
 print('\nSummary ESG betas with outliers:')

@@ -2,7 +2,7 @@ import numpy as np
 from ImportFilesPackages.ImportFiles import stockReturns_df
 from ImportFilesPackages.ImportRandomSamples import *
 from RAnalysis.RTools.PrintRSummary import printDataSetSummary
-from RAnalysis.FilterData.filterData import nonMultiColList
+from RAnalysis.FilterData.filterDataLevel1 import nonMultiColList
 from RAnalysis.FilterData.GroupData.splitAccordingToESG import groupInQuantiles, filterESGScores
 from RAnalysis.RTools.tTest import twoSampleTTest
 from RAnalysis.RTools.Performance import countNumberOfSignificantTTests

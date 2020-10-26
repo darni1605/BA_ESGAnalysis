@@ -1,14 +1,20 @@
 import numpy as np
 from scipy.stats import ttest_1samp, ttest_ind
+from RAnalysis.FilterData.testFunctions.testGaussianNormality import isNormal
 
 
 def oneSampleTTest(arr, testAgainst):
-    avg = np.exp(np.nanmean(arr)) - 1
-    median = np.exp(np.nanmedian(arr)) - 1
-    tTest = ttest_1samp(arr, testAgainst)
-    print('t-statistic = %6.4f pValue = %6.6f' % tTest)
-    print('Median: %6.6f' % median)
-    print('Average: %6.6f' % avg)
+    avg = np.nanmean(arr)
+    median = np.nanmedian(arr)
+    if isNormal(arr, 0.90):
+        tTest = ttest_1samp(arr, testAgainst)
+        print('t-statistic = %6.4f pValue = %6.4f' % tTest)
+        print('Median: %6.6f' % median)
+        print('Average: %6.6f' % avg)
+    else:
+        print('The sample is not normally distributed.')
+        print('Median: %6.6f' % median)
+        print('Average: %6.6f' % avg)
 
 
 # Please note: if one tailed, the first sample is expected to be bigger #
@@ -20,6 +26,6 @@ def twoSampleTTest(arr1, arr2, hasEqualVar, isOneTailed):
     tStat, pValue = ttest_ind(arr1, arr2, equal_var=hasEqualVar)
     if isOneTailed:
         pValue = pValue / 2
-    print('t-statistic = %6.4f pValue = %6.6f' % (tStat, pValue))
-    print('Median of 1st sample: %6.6f & Median of 2nd sample: %6.6f' % (median1, median2))
     print('Average of 1st sample: %6.6f & Average of 2nd sample: %6.6f' % (avg1, avg2))
+    print('Median of 1st sample: %6.6f & Median of 2nd sample: %6.6f' % (median1, median2))
+    print('t-statistic = %6.4f pValue = %6.4f' % (tStat, pValue))

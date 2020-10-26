@@ -7,6 +7,17 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="jdk" jdkName="Python 3.7 (RPyEnv)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="highcharts" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="data" level="application" />
+    <orderEntry type="library" name="exporting" level="application" />
+    <orderEntry type="library" name="export-data" level="application" />
+    <orderEntry type="library" name="accessibility" level="application" />
+    <orderEntry type="library" name="highstock" level="application" />
+    <orderEntry type="library" name="jquery-3.1.1" level="application" />
+    <orderEntry type="library" name="require.js" level="application" />
+    <orderEntry type="library" name="highcharts-more" level="application" />
+    <orderEntry type="library" name="highslide" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />

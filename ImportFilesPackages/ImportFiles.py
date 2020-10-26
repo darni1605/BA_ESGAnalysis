@@ -37,7 +37,6 @@ GovernanceScore_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorar
                                  , sep=';', header=0, index_col=0)
 GovernanceScore_df.replace(r'^\s*$', np.nan, regex=True)
 
-
 OverallESGScores_changes_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
                                           r'Data\CSV-files\Reuters_OverallESGScores_changes_csv.csv', sep=';', header=0,
                                           index_col=0)
@@ -125,3 +124,15 @@ utilitiesStocks = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbei
 listOfStocksPerIndustry = [communicationServicesStocks, consumerDiscretionaryStocks, consumerStaplesStocks,
                            energyStocks, financialsStocks, healthCareStocks, industrialsStocks,
                            informationTechnologyStocks, materialsStocks, realEstateStocks, utilitiesStocks]
+
+communicationServicesStocks = listOfStocksPerIndustry[0].columns
+consumerDiscretionaryStocks = listOfStocksPerIndustry[1].columns
+consumerStaplesStocks = listOfStocksPerIndustry[2].columns
+energyStocks = listOfStocksPerIndustry[3].columns
+financialsStocks = listOfStocksPerIndustry[4].columns
+healthCareStocks = listOfStocksPerIndustry[5].columns
+industrialsStocks = listOfStocksPerIndustry[6].columns
+informationTechnologyStocks = listOfStocksPerIndustry[7].columns
+materialsStocks = listOfStocksPerIndustry[8].columns
+realEstateStocks = listOfStocksPerIndustry[9].columns
+utilitiesStocks = listOfStocksPerIndustry[10].columns

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/button.css">
+    <link rel="stylesheet" href="../static/containers.css">
+    <title>Home</title>
+</head>
+<style type="text/css">
+body {
+    background-image: url(../static/homeBackgroundImage.jpg);
+}
+</style>
+<body>
+    <BaseContainer>
+        <FormContainer>
+            <Form>
+                <MyButton id="Performance Comparison">Performance Comparison</MyButton>
+                <script type="text/javascript"> document.getElementById("Performance Comparison").onclick = function () {
+                location.href = "http://127.0.0.1:5000/PerformanceComparison";
+                };
+                </script>
+                <MyButton id="Histogram ESG Betas">Histogram ESG Betas</MyButton>
+                <MyButton id="Stock Table">Stock Table</MyButton>
+            </Form>
+        </FormContainer>
+    </BaseContainer>
+</body>
+</html>

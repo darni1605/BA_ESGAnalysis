@@ -1,4 +1,4 @@
-from RAnalysis.FilterData.filterData import nonMultiColList
+from RAnalysis.FilterData.filterDataLevel1 import nonMultiColList
 from RAnalysis.FilterData.GroupData.splitAccordingToESG import filterESGScores, groupAccordingToAverage
 from RAnalysis.RTools.ConductHypoTest import conductHypoTest
 

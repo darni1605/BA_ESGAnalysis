@@ -6,37 +6,24 @@ from ImportFilesPackages.ImportFiles import stockReturns_df, marketPremium, SMB,
 from ImportFilesPackages.ImportRPackages import stats
 
 
-def createRString(stock, level):
-    if level == 1:
-        rString = stock + '~ MarketPremium + SMB + HML +' + stock + 'ESGScore'
-    elif level == 2:
-        environmentColumnName = stock + 'EnvironmentScore +'
-        socialColumnName = stock + 'SocialScore +'
-        governanceColumnName = stock + 'GovernanceScore'
-        rString = stock + '~ MarketPremium + SMB + HML +' \
-                  + environmentColumnName + socialColumnName + governanceColumnName
-
+def createRString(df):
+    columnNames = df.columns
+    rString = columnNames[0] + '~'
+    for i in range(1, len(columnNames)):
+        if i < len(columnNames) - 1:
+            rString += columnNames[i] + '+'
+        else:
+            rString += columnNames[i]
     return rString
 
 
-def createRModel(stock, level):
-    df = createDFModel(stock, level)
-    hasOnlyNaNColumn = False
-
-    if len(df.columns) > len(df.dropna(1, 'all').columns):
-        hasOnlyNaNColumn = True
-
-    if not hasOnlyNaNColumn:
-        pandas2ri.activate()
-        rModelString = createRString(stock, level)
-        rModel = stats.lm(rModelString, data=df)
-        return rModel
-
-    else:
-        return hasOnlyNaNColumn
+def createRModel(df):
+    pandas2ri.activate()
+    rModelString = createRString(df)
+    rModel = stats.lm(rModelString, data=df)
+    return rModel
 
 
-# test with log returns #
 def createDFModel(stock, level):
     stockReturns = stockReturns_df[stock]
     adjustedStockReturns = stockReturns - riskFree
@@ -45,15 +32,19 @@ def createDFModel(stock, level):
     if level == 1:
         ESGColumnName = stock + 'ESGScore'
         ESG = OverallESGScores_df[ESGColumnName]
+        ESG = ESG[~np.isnan(ESG)]
         data = [adjustedStockReturns_df, marketPremium, SMB, HML, ESG]
 
     elif level == 2:
         environmentColumnName = stock + 'EnvironmentScore'
         environmentScores = EnvironmentScores_df[environmentColumnName]
+        environmentScores = environmentScores[~np.isnan(environmentScores)]
         socialColumnName = stock + 'SocialScore'
         socialScores = SocialScores_df[socialColumnName]
+        socialScores = socialScores[~np.isnan(socialScores)]
         governanceColumnName = stock + 'GovernanceScore'
         governanceScores = GovernanceScore_df[governanceColumnName]
+        governanceScores = governanceScores[~np.isnan(governanceScores)]
         data = [adjustedStockReturns_df, marketPremium, SMB, HML, environmentScores, socialScores, governanceScores]
 
     df = pd.concat(data, axis=1)

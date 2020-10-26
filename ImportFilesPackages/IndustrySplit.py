@@ -1,5 +1,5 @@
 from ImportFilesPackages.ImportFiles import sp500_Industries, stockReturns_df
-from RAnalysis.FilterData.filterData import nonMultiColList
+from RAnalysis.FilterData.filterDataLevel1 import nonMultiColList
 import pandas as pd
 import numpy as np
 

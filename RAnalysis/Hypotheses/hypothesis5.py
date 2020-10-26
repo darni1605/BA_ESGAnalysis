@@ -1,8 +1,8 @@
 import numpy as np
 from ImportFilesPackages.ImportFiles import listOfStocksPerIndustry, sp500_Industries
 from RAnalysis.RTools.ExtractCoefficients import *
+from RAnalysis.RTools.GenerateModels import createDFModels
 from RAnalysis.RTools.tTest import oneSampleTTest
-
 
 # Display amount of stocks and number of data points per industry
 
@@ -24,15 +24,14 @@ for industry in listOfStocksPerIndustry:
     currentListOfStockNames = []
     for stock in industry:
         currentListOfStockNames.append(stock)
-    currentExtractedSummaries = extractSummaries(currentListOfStockNames, 1)
+    currentDfList = createDFModels(currentListOfStockNames, 1)
+    cleanCurrentDfList = dropOnlyNanColumns(currentDfList)
+    currentExtractedSummaries = extractSummaries(cleanCurrentDfList)
     currentExtractedCoefficients = extractCoefficients(currentExtractedSummaries)
     currentExtractedESGBetas = extractESGBetas(currentExtractedCoefficients)
     currentExtractedESGBetasPValues = extractESGBetasPValue(currentExtractedCoefficients)
     listOfExtractedESGBetas.append(currentExtractedESGBetas)
     listOfExtractedESGBetasPValues.append(currentExtractedESGBetasPValues)
-
-for i in listOfExtractedESGBetasPValues:
-    print(len(i))
 
 communicationServicesESG = listOfExtractedESGBetas[0]
 communicationServicesESG = communicationServicesESG[~np.isnan(communicationServicesESG)]
@@ -112,8 +111,13 @@ utSignificanceCount, utNoSignificanceCount = countSignificantFactors(utilitiesES
 utPercentageOfSignificance = 100 * utSignificanceCount / (utSignificanceCount + utNoSignificanceCount)
 
 print('\nH5: Each industry has a different ESG beta and all betas are statistically different from zero')
+print('Please note: For all industries, the number of stocks is to small to be able to conduct an hypothesis test. '
+      'Therefore, ignore the results of hypothesis tests and analysis the means/medians instead. Additionally, '
+      'calculate the percentage of significant ESG betas per industry.')
 
-print('\nT test for industry Communication Services')
+
+print('\nT test for industry Communication Services with %2d respectively %2d stocks' % (len(communicationServicesESG),
+                                                                                         len(comSerWithoutOutliers)))
 oneSampleTTest(communicationServicesESG, 0.0)
 oneSampleTTest(comSerWithoutOutliers, 0.0)
 print('With outliers: no statistical significance supporting the difference of ESG betas different from zero')
@@ -121,14 +125,16 @@ print('Without outliers: 99% confidence for a difference to zero')
 print('Mean and average smaller than zero --> indicates negative correlation')
 print('Percentage of individual stocks with significant ESG betas: %6.2f%%' % comSerPercentageOfSignificance)
 
-print('\nT test for industry Consumer Discretionary')
+print('\nT test for industry Consumer Discretionary with %2d respectively %2d stocks' % (len(consumerDiscretionaryESG),
+                                                                                         len(conDisWithoutOutliers)))
 oneSampleTTest(consumerDiscretionaryESG, 0.0)
 oneSampleTTest(conDisWithoutOutliers, 0.0)
 print('With and without outliers ESG beta statistically different from zero with confidence level 99%')
 print('Mean and average smaller than zero --> indicates negative correlation')
 print('Percentage of individual stocks with significant ESG betas: %6.2f%%' % conDisPercentageOfSignificance)
 
-print('\nT test for industry Consumer Staples')
+print('\nT test for industry Consumer Staples  with %2d respectively %2d stocks' % (len(consumerStaplesESG),
+                                                                                    len(conStaWithoutOutliers)))
 oneSampleTTest(consumerStaplesESG, 0.0)
 oneSampleTTest(conStaWithoutOutliers, 0.0)
 print('With outliers: no statistical significance for a difference to zero')
@@ -136,14 +142,16 @@ print('Without outliers: 90% confidence for a difference to zero')
 print('Mean and average smaller than zero --> indicates negative correlation')
 print('Percentage of individual stocks with significant ESG betas: %6.2f%%' % conStaPercentageOfSignificance)
 
-print('\nT test for industry Energy')
+print('\nT test for industry Energy with %2d respectively %2d stocks' % (len(energyESG),
+                                                                         len(enWithoutOutliers)))
 oneSampleTTest(energyESG, 0.0)
 oneSampleTTest(enWithoutOutliers, 0.0)
 print('Has no outliers: 95% confidence for a difference to zero')
 print('Mean and average smaller than zero --> indicates negative correlation')
 print('Percentage of individual stocks with significant ESG betas: %6.2f%%' % enPercentageOfSignificance)
 
-print('\nT test for industry Financials')
+print('\nT test for industry Financials with %2d respectively %2d stocks' % (len(financialsESG),
+                                                                             len(finWithoutOutliers)))
 oneSampleTTest(financialsESG, 0.0)
 oneSampleTTest(finWithoutOutliers, 0.0)
 print('With outliers: 95% confidence for a difference to zero')
@@ -151,7 +159,8 @@ print('Without outliers: 99% confidence for a difference to zero')
 print('Mean and average smaller than zero --> indicates negative correlation')
 print('Percentage of individual stocks with significant ESG betas: %6.2f%%' % finPercentageOfSignificance)
 
-print('\nT test for industry Health Care')
+print('\nT test for industry Health Care with %2d respectively %2d stocks' % (len(healthCareESG),
+                                                                              len(heCaWithoutOutliers)))
 oneSampleTTest(healthCareESG, 0.0)
 oneSampleTTest(heCaWithoutOutliers, 0.0)
 print('With outliers: no statistical significance for a difference to zero')
@@ -159,14 +168,16 @@ print('Without outliers: 99% confidence for a difference to zero')
 print('Mean and average smaller than zero --> indicates negative correlation')
 print('Percentage of individual stocks with significant ESG betas: %6.2f%%' % heCaPercentageOfSignificance)
 
-print('\nT test for industry Industrials')
+print('\nT test for industry Industrials with %2d respectively %2d stocks' % (len(industrialsESG),
+                                                                              len(indWithoutOutliers)))
 oneSampleTTest(industrialsESG, 0.0)
 oneSampleTTest(indWithoutOutliers, 0.0)
 print('With and without outliers ESG beta statistically different from zero with confidence level 99%')
 print('Mean and average smaller than zero --> indicates negative correlation')
 print('Percentage of individual stocks with significant ESG betas: %6.2f%%' % indPercentageOfSignificance)
 
-print('\nT test for industry Information Technology')
+print('\nT test for industry Information Technology with %2d respectively %2d stocks' % (len(informationTechnologyESG),
+                                                                                         len(itWithoutOutliers)))
 oneSampleTTest(informationTechnologyESG, 0.0)
 oneSampleTTest(itWithoutOutliers, 0.0)
 print('With outliers: no statistical significance for a difference to zero')
@@ -174,14 +185,16 @@ print('Without outliers: 99% confidence for a difference to zero')
 print('Mean and average smaller than zero --> indicates negative correlation')
 print('Percentage of individual stocks with significant ESG betas: %6.2f%%' % itPercentageOfSignificance)
 
-print('\nT test for industry Materials')
+print('\nT test for industry Materials  with %2d respectively %2d stocks' % (len(materialsESG),
+                                                                             len(matWithoutOutliers)))
 oneSampleTTest(materialsESG, 0.0)
 oneSampleTTest(matWithoutOutliers, 0.0)
 print('With and without outliers ESG beta not statistically different from zero')
 print('Mean and average smaller than zero --> indicates negative correlation')
 print('Percentage of individual stocks with significant ESG betas: %6.2f%%' % matPercentageOfSignificance)
 
-print('\nT test for industry Real Estate')
+print('\nT test for industry Real Estate with %2d respectively %2d stocks' % (len(realEstateESG),
+                                                                              len(reEsWithoutOutliers)))
 oneSampleTTest(realEstateESG, 0.0)
 oneSampleTTest(reEsWithoutOutliers, 0.0)
 print('With outliers: 95% confidence for a difference to zero')
@@ -189,7 +202,8 @@ print('Without outliers: 99% confidence for a difference to zero')
 print('Mean and average smaller than zero --> indicates negative correlation')
 print('Percentage of individual stocks with significant ESG betas: %6.2f%%' % reEsPercentageOfSignificance)
 
-print('\nT test for industry Utilities')
+print('\nT test for industry Utilities with %2d respectively %2d stocks' % (len(utilitiesESG),
+                                                                            len(utWithoutOutliers)))
 oneSampleTTest(utilitiesESG, 0.0)
 oneSampleTTest(utWithoutOutliers, 0.0)
 print('Has no outliers: there is evidence for difference to zero on a 90% confidence level')
