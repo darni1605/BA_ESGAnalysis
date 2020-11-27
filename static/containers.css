@@ -1,3 +1,42 @@
+HomeTitleContainer {
+    color: ivory;
+    text-align: center;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+    display: flow-root;
+    font-size: 2vw;
+    font-style: oblique;
+    width: auto;
+    padding: 5px;
+    margin-left: 35px;
+    margin-top: 20px;
+    margin-bottom: -58px;
+}
+
+SubTitleContainer {
+    color: ivory;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+    text-align: left;
+    display: flow-root;
+    font-size: 1vw;
+}
+
+ChartSelectionTitle {
+    padding: 20px;
+    color: ivory;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+    border-bottom: solid;
+    border-top-style: solid;
+    border-width: thick;
+    display: flow-root;
+    text-align: center;
+    border-color: rgb(132 140 139);
+    font-size: 1.3vw;
+    margin-top: 80px;
+    margin-bottom: -32px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
 FormContainer {
     margin-top: 2em;
     display: flex;
@@ -11,10 +50,7 @@ Form {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 60%;
-    height: auto;
-    font-size: 16px;
-    font-weight: 300;
+    width: 40%;
     padding-left: 37px;
     padding-right: 37px;
     border-radius: 5px;
@@ -22,6 +58,7 @@ Form {
 }
 
 .BaseContainer {
+    margin-top: -50px;
     margin-left: auto;
     padding-left: 15px;
     margin-right: auto;
@@ -29,6 +66,6 @@ Form {
 }
 
 Container {
-    color: white;
+    color: ivory;
     text-align: center;
 }

@@ -1,6 +1,8 @@
 from RAnalysis.FilterData.filterDataLevel2 import cleanListOfDf
 from RAnalysis.RTools.ExtractCoefficients import *
+from RAnalysis.RTools.PrintRSummary import printDataSetSummary
 from RAnalysis.RTools.tTest import *
+import pandas as pd
 
 
 listOfColumnNames = []
@@ -14,6 +16,9 @@ envBetas, envPValues, socBetas, socPValues, govBetas, govPValues = extractSubSco
 envBetas = envBetas[~np.isnan(envBetas)]
 socBetas = socBetas[~np.isnan(socBetas)]
 govBetas = govBetas[~np.isnan(govBetas)]
+envPValues = envPValues[~np.isnan(envPValues)]
+socPValues = socPValues[~np.isnan(socPValues)]
+govPValues = govPValues[~np.isnan(govPValues)]
 
 envBetasWithoutOutliers = excludeOutliers(envBetas)
 socBetasWithoutOutliers = excludeOutliers(socBetas)
@@ -26,12 +31,33 @@ print('Amount of non NaN Social betas with and without outliers: %2d & %2d'
 print('Amount of non NaN Governance betas with and without outliers: %2d & %2d'
       % (np.count_nonzero(~np.isnan(govBetas)), np.count_nonzero(~np.isnan(govBetasWithoutOutliers))))
 
-envSignCount, envNoSignCount = countSignificantFactors(envBetas, 0.05)
+envSignCount, envNoSignCount = countSignificantFactors(envPValues, 0.05)
 envPercentage = 100 * envSignCount / (envSignCount + envNoSignCount)
-socSignCount, socNoSignCount = countSignificantFactors(socBetas, 0.05)
+socSignCount, socNoSignCount = countSignificantFactors(socPValues, 0.05)
 socPercentage = 100 * socSignCount / (socSignCount + socNoSignCount)
-govSignCount, govNoSignCount = countSignificantFactors(govBetas, 0.05)
+govSignCount, govNoSignCount = countSignificantFactors(govPValues, 0.05)
 govPercentage = 100 * govSignCount / (govSignCount + govNoSignCount)
+
+envBetas_df = pd.DataFrame(envBetas)
+envBetasWithoutOutliers_df = pd.DataFrame(envBetasWithoutOutliers)
+socBetas_df = pd.DataFrame(socBetas)
+socBetasWithoutOutliers_df = pd.DataFrame(socBetasWithoutOutliers)
+govBetas_df = pd.DataFrame(govBetas)
+govBetasWithoutOutliers_df = pd.DataFrame(govBetasWithoutOutliers)
+print('Env Betas with outliers:')
+printDataSetSummary(envBetas_df)
+print('\nEnv betas without outliers')
+printDataSetSummary(envBetasWithoutOutliers_df)
+
+print('\nSoc Betas with outliers:')
+printDataSetSummary(socBetas_df)
+print('\n Soc betas without outliers')
+printDataSetSummary(socBetasWithoutOutliers_df)
+
+print('\nGov Betas with outliers:')
+printDataSetSummary(govBetas_df)
+print('\nGov betas without outliers')
+printDataSetSummary(govBetasWithoutOutliers_df)
 
 
 print('\nH8: The average of all Environment Betas is different to zero')
@@ -39,7 +65,7 @@ print('\nWith outliers:')
 oneSampleTTest(envBetas, 0)
 print('\nWithout outliers:')
 oneSampleTTest(envBetasWithoutOutliers, 0)
-print('Percentage of individually significant Environment Betas of all stocks: %2d%%' % envPercentage)
+print('Percentage of individually significant Environment Betas of all stocks: %2.2f%%' % envPercentage)
 
 
 print('\nH9: The average of all Social Betas is different to zero')
@@ -47,7 +73,7 @@ print('\nWith outliers:')
 oneSampleTTest(socBetas, 0)
 print('\nWithout outliers:')
 oneSampleTTest(socBetasWithoutOutliers, 0)
-print('Percentage of individually significant Social Betas of all stocks: %2d%%' % socPercentage)
+print('Percentage of individually significant Social Betas of all stocks: %2.2f%%' % socPercentage)
 
 
 print('\nH10: The average of all Governance Betas is different to zero')
@@ -55,7 +81,7 @@ print('\nWith outliers:')
 oneSampleTTest(govBetas, 0)
 print('\nWithout outliers:')
 oneSampleTTest(govBetasWithoutOutliers, 0)
-print('Percentage of individually significant Governance Betas of all stocks: %2d%%' % govPercentage)
+print('Percentage of individually significant Governance Betas of all stocks: %2.2f%%' % govPercentage)
 
 
 

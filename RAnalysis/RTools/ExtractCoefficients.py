@@ -124,6 +124,65 @@ def extractSubScores(listOfColumnNames, extractedCoefficients):
     return envBetas, envPValues, socBetas, socPValues, govBetas, govPValues
 
 
+def extractAdjustedRSquared(summaries):
+    listOfRSquared = []
+    for summary in summaries:
+        listOfRSquared.append(float(summary[8]))
+    return listOfRSquared
+
+
+def distributionOfRSquared(listOfRSquared):
+    limit1 = 0.25
+    limit2 = 0.5
+    limit3 = 0.75
+    group1 = []
+    group2 = []
+    group3 = []
+    group4 = []
+    totalAmount = len(listOfRSquared)
+
+    for rSquared in listOfRSquared:
+        if limit1 >= rSquared:
+            group1.append(rSquared)
+        elif limit1 < rSquared <= limit2:
+            group2.append(rSquared)
+        elif limit2 < rSquared <= limit3:
+            group3.append(rSquared)
+        else:
+            group4.append(rSquared)
+
+    perGroup1 = 100 * len(group1) / totalAmount
+    perGroup2 = 100 * len(group2) / totalAmount
+    perGroup3 = 100 * len(group3) / totalAmount
+    perGroup4 = 100 * len(group4) / totalAmount
+
+    return perGroup1, perGroup2, perGroup3, perGroup4
+
+
+def dropESGScoresFromModel(listOfDfs, level):
+    newListOfDfs = []
+    if level == 1:
+        for df in listOfDfs:
+            currentESGColumnName = df.columns[0] + 'ESGScore'
+            if currentESGColumnName in df.columns:
+                dfWithoutESG = df.drop(columns=[currentESGColumnName])
+                newListOfDfs.append(dfWithoutESG)
+    if level == 2:
+        for df in listOfDfs:
+            dfWithoutESG = df
+            currentEnvColumnName = df.columns[0] + 'EnvironmentScore'
+            currentSocColumnName = df.columns[0] + 'SocialScore'
+            currentGovColumnName = df.columns[0] + 'GovernanceScore'
+            if currentEnvColumnName in df.columns:
+                dfWithoutESG = dfWithoutESG.drop(columns=[currentEnvColumnName])
+            if currentSocColumnName in df.columns:
+                dfWithoutESG = dfWithoutESG.drop(columns=[currentSocColumnName])
+            if currentGovColumnName in df.columns:
+                dfWithoutESG = dfWithoutESG.drop(columns=[currentGovColumnName])
+            newListOfDfs.append(dfWithoutESG)
+    return newListOfDfs
+
+
 def countSignificantFactors(pValueList, significanceLevel):
     significanceCount = 0
     noSignificanceCount = 0

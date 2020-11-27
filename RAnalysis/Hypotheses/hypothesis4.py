@@ -1,6 +1,8 @@
 import numpy as np
 from ImportFilesPackages.ImportFiles import stockReturns_df
 from ImportFilesPackages.ImportRandomSamples import *
+from RAnalysis.FilterData.testFunctions.testGaussianNormality import isNormal
+from RAnalysis.RTools.PlotGraphs import histogram
 from RAnalysis.RTools.PrintRSummary import printDataSetSummary
 from RAnalysis.FilterData.filterDataLevel1 import nonMultiColList
 from RAnalysis.FilterData.GroupData.splitAccordingToESG import groupInQuantiles, filterESGScores
@@ -10,6 +12,7 @@ from RAnalysis.RTools.Performance import countNumberOfSignificantTTests
 
 # group all stocks into a low, medium and high ESG group (according to quantiles) and test outperformance
 filteredESGScores = filterESGScores(nonMultiColList)
+print(len(filteredESGScores.columns))
 lowGroup, mediumGroup, highGroup = groupInQuantiles(filteredESGScores)
 
 lowGroupReturns = stockReturns_df[lowGroup].copy()
@@ -39,6 +42,11 @@ print('\nSummary of Medium group average Returns:')
 printDataSetSummary(avgMediumGroupReturns)
 print('\nSummary of High group average Returns:')
 printDataSetSummary(avgHighGroupReturns)
+
+print(len(lowGroup)), print(len(mediumGroup)), print(len(highGroup))
+print(isNormal(avgLowGroupReturns, 0.90))
+print(isNormal(avgMediumGroupReturns, 0.90))
+print(isNormal(avgHighGroupReturns, 0.90))
 
 print('\nBecause of fat-tails, all average return lists are not normally distributed. Assumption: they are!')
 

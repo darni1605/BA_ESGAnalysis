@@ -6,12 +6,12 @@ from RAnalysis.FilterData.filterDataLevel1 import nonMultiColList
 from RAnalysis.FilterData.testFunctions.testGaussianNormality import isNormal
 
 # extract the stock tickers of all data filtering survivors #
-from RAnalysis.RTools.PlotGraphs import histogram
 
 listOfDfs = dropOnlyNanColumns(nonMultiColList)
 extractedSummaries = extractSummaries(listOfDfs)
 extractedCoefficients = extractCoefficients(extractedSummaries)
 extractedESGBetaPValues = extractESGBetasPValue(extractedCoefficients)
+extractedESGBetaPValues = extractedESGBetaPValues[~np.isnan(extractedESGBetaPValues)]
 significanceCount, noSignificanceCount = countSignificantFactors(extractedESGBetaPValues, 0.05)
 percentageOfSignificance = 100 * significanceCount / (significanceCount + noSignificanceCount)
 extractedESGBetas = extractESGBetas(extractedCoefficients)
@@ -40,7 +40,7 @@ else:
     print('RESULT: With outliers, the distribution of ESG betas does not follow normality and can therefore not be '
           'tested.')
 if isNormal(ESGBetasWithoutOutliers, 0.95):
-    print('\nt-statistic = %6.3f pValue = %6.4f' % tTest2)
+    print('\nt-statistic = %6.3f pValue = %6.10f' % tTest2)
     print('Median of all ESG Betas: %6.6f, average of all ESG betas: %6.6f'
           % (medianESGWithoutOutliers, averageESGWithoutOutliers))
     print('''RESULT: Without outliers, the ESG beta has a statistically significant difference to zero on a 99% confidence 

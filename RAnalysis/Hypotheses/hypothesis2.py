@@ -1,17 +1,45 @@
+import numpy as np
+from ImportFilesPackages.ImportFiles import stockReturns_df
 from RAnalysis.FilterData.filterDataLevel1 import nonMultiColList
 from RAnalysis.FilterData.GroupData.splitAccordingToESG import filterESGScores, groupAccordingToAverage
+from RAnalysis.FilterData.testFunctions.testGaussianNormality import isNormal
 from RAnalysis.RTools.ConductHypoTest import conductHypoTest
+from RAnalysis.RTools.PrintRSummary import printDataSetSummary
 
 # group all stocks into a below & above ESG market average and test underperformance/outperformance compared to market
 
 filteredESGDf = filterESGScores(nonMultiColList)
 belowMarketESGAverageGroup, aboveMarketESGAverageGroup = groupAccordingToAverage(filteredESGDf)
+listOfMarketStocks = []
+for df in nonMultiColList:
+    listOfMarketStocks.append(df.columns[0])
+
+
+aboveGroupMeanReturn = stockReturns_df[aboveMarketESGAverageGroup].mean(axis=1).copy()
+belowGroupMeanReturn = stockReturns_df[belowMarketESGAverageGroup].mean(axis=1).copy()
+marketMeanReturn = stockReturns_df[listOfMarketStocks].mean(axis=1).copy()
+aboveGroupMeanReturn = aboveGroupMeanReturn[~np.isnan(aboveGroupMeanReturn)]
+belowGroupMeanReturn = belowGroupMeanReturn[~np.isnan(belowGroupMeanReturn)]
+marketMeanReturn = marketMeanReturn[~np.isnan(marketMeanReturn)]
+
+print('Market Returns summary:')
+printDataSetSummary(marketMeanReturn)
+
+print('Above Market Average group summary:')
+printDataSetSummary(aboveGroupMeanReturn)
+
+print('Below Market Average group summary:')
+printDataSetSummary(belowGroupMeanReturn)
 
 print('All lists with average return are, because of fat-tails, not normally distributed. As a simplification, '
       'we assume normality as the histogram follows by eye a normal distribution.')
 
+print(isNormal(aboveGroupMeanReturn, 0.90))
+print(isNormal(belowGroupMeanReturn, 0.90))
+print(isNormal(marketMeanReturn, 0.90))
+
 # H2
-print('\nH2: Is there an underperformance of stocks below market ESG average compared to the market?')
+print('\nH3: Is there an underperformance of stocks below market ESG average compared to the market?')
 conductHypoTest(belowMarketESGAverageGroup, nonMultiColList, isLow=True)
 print('''RESULT: The hypothesis of an underperformance of stocks below market ESG average can be rejected with a
 p-value of 0.6000. The two sample test yields a p-value of 0.426755. Both the average and median return of the below
@@ -19,7 +47,7 @@ market ESG average group is bigger than market average and median return. Additi
 the Low group actually underperformed the market. There is therefore no evidence for an underperformance.''')
 
 # H3
-print('\nH3: Is there an outperformance of stocks above market ESG average compared to the market?')
+print('\nH4: Is there an outperformance of stocks above market ESG average compared to the market?')
 conductHypoTest(aboveMarketESGAverageGroup, nonMultiColList, isLow=False)
 print('''RESULT: There is no evidence for an outperformance of above market ESG average stocks compared to the market
 return. The one sample test yields a p-value of 0.3913 and the two sample test 0.4246. Both the mean and median

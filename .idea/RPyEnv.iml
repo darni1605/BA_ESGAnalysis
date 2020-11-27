@@ -18,6 +18,9 @@
     <orderEntry type="library" name="require.js" level="application" />
     <orderEntry type="library" name="highcharts-more" level="application" />
     <orderEntry type="library" name="highslide" level="application" />
+    <orderEntry type="library" name="heatmap" level="application" />
+    <orderEntry type="library" name="histogram-bellcurve" level="application" />
+    <orderEntry type="library" name="highcharts-regression" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />

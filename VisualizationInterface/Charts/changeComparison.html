@@ -1,11 +1,28 @@
-    <Form>
-        <form action="../../app.py">
-            <label for="stock">Select Stock</label>
-            <input type="text" id="stock" name="stock"><br><br>
-        </form>
-        <label for="comparable">Choose the comparable:</label>
-        <select name="comparable" id="comparable">
+    <script>
+        function disableRenderButton(filteredStocks) {
+            var submitButton = document.getElementById('submitButton')
+            var currentValue = document.getElementById('stock').value;
+            if (filteredStocks.includes(currentValue) && currentValue !== null) {
+                submitButton.removeAttribute('disabled')
+            }
+        }
+    </script>
+    <Form style="font-family: 'Lucida Grande',sans-serif; text-align: -webkit-center; margin-top: 80px; margin-left: 30px">
+    <div style="display: grid">
+        <form action="{{ url_for('PerformanceComparison')}}" filteredStocks="filteredStocks" method="post">
+            <label for="stock" style="color: white; margin-top: -45px">Select Stock</label>
+            <input type="text" style="background-color: white; margin-top: -25px; padding: 5px; text-align: center;" list="stocks" id="stock" name="stock" oninput="disableRenderButton({{ filteredStocks }})"><br><br>
+            <datalist id="stocks">
+                {% for item in filteredStocks %}
+                <option value= "{{ item }}">
+                {% endfor %}
+            </datalist>
+        <label for="comparable" style="font-family: 'Lucida Grande',sans-serif; color: white; margin-top: -20px;">Choose the Comparable: </label>
+        <select name="comparable" id="comparable" style="font-family: 'Lucida Grande',sans-serif;color: black;padding: 5px;text-align-last: center">
             <option value="Industry">Industry</option>
             <option value="Market">Market</option>
         </select>
+            <input type="submit" id="submitButton" disabled value="Rerender Chart" style="display: flex; margin-top: 26px; color: black; padding: 8px; background-color: white; font-size: medium; justify-content: center">
+        </form>
+    </div>
     </Form>

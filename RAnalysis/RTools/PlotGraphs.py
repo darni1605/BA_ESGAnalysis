@@ -18,8 +18,8 @@ def histogram(dataToPlot, title, xLabel, yLabel):
 
 # make all plots using matplotlib, r plots crash ##
 
-def residualDiagram(stock, columnNrToPlot):
-    stockDF = createDFModel(stock)
+def residualDiagram(stock, columnNrToPlot, level):
+    stockDF = createDFModel(stock, level)
     y = stockDF.columns[0]
     x1 = stockDF.columns[1]
     x2 = stockDF.columns[2]
@@ -32,8 +32,8 @@ def residualDiagram(stock, columnNrToPlot):
     fig.show()
 
 
-def standardizedResidualDiagram(stock):
-    stockDF = createDFModel(stock)
+def standardizedResidualDiagram(stock, level):
+    stockDF = createDFModel(stock, level)
     y = stockDF.columns[0]
     x1 = stockDF.columns[1]
     x2 = stockDF.columns[2]

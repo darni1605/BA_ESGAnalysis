@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet"/>
+  <script src="https://code.highcharts.com/highcharts.js">
+  </script>
+  <script src="https://code.highcharts.com/modules/exporting.js">
+  </script>
+  <script src="https://code.highcharts.com/modules/accessibility.js">
+  </script>
+  <script src="//rawgithub.com/phpepe/highcharts-regression/master/highcharts-regression.js">
+  </script>
+  <style type="text/css">
+   body {background-color:rgb(56 54 54);}
+   #BackButton {
+        margin-top: 40px;
+        margin-left: 30px;
+        padding:0.35em 1.2em;
+        border: rgba(145,233,255,0.6);
+        font-family:'Lucida Grande',sans-serif;
+        font-size: larger;
+        color:black;
+        background: rgba(16, 200, 255, 0.5);
+        text-align:center;
+    }
+    #BackButton:hover {
+        background-color:rgba(145,233,255,0.6);
+    }
+  </style>
+ </head>
+     <script type="text/javascript">
+         window.onload = function () {
+             document.getElementById("BackButton").onclick = function () {
+                location.href = "http://127.0.0.1:5000/";
+             };
+         }
+    </script>
+      <script>
+        function disableRenderButton(stockList) {
+            console.log(stockList)
+            var submitButton = document.getElementById('submitButton')
+            var currentValue = document.getElementById('stock').value;
+            if (stockList.includes(currentValue) && currentValue !== null) {
+                submitButton.removeAttribute('disabled')
+            }
+        }
+
+        function chooseStockList () {
+            var level = document.getElementById('level').value;
+            var stockList1 = {{ stockList1stLevel | tojson | safe }}
+            var stockList2 = {{ stockList2ndLevel | tojson | safe }}
+            var stockList1 = JSON.parse(stockList1)
+            var stockList2 = JSON.parse(stockList2)
+
+            if (level === '1') {
+                return stockList1
+            }
+            if (level === '2') {
+                return stockList2
+            }
+        }
+
+        function setDataListOptions() {
+            var selectedLevel = document.getElementById('level').value;
+            var dataList = document.getElementById('stocks')
+            var stockList = chooseStockList(selectedLevel)
+            var strToAdd = ''
+            for(var i = 0; i < stockList.length; i++) {
+                strToAdd += '<option value="' + stockList[i]+'" />';
+            }
+            dataList.innerHTML = strToAdd;
+        }
+
+    </script>
+ <body style="margin:0;padding:0" onload="setDataListOptions()">
+  <figure class="highcharts-figure">
+   <div id="container">
+    <script type="text/javascript">
+     Highcharts.chart('container', {
+         chart: {
+             type: 'scatter',
+             zoomType: 'xy',
+             height: 500,
+         },
+         title: {
+             text: 'Linear Regression Line vs. Observed Stock Returns'
+         },
+         xAxis: {
+             title: {
+                 text: '{{ modelString }}'
+             },
+             labels: {
+                 format: '{value}%'
+             },
+             startOnTick: true,
+             endOnTick: true,
+             showLastLabel: true
+         },
+         yAxis: {
+             title: {
+                 text: 'Return'
+             },
+             labels: {
+                 format: '{value}%'
+             },
+         },
+         legend: {
+             enabled: true,
+             layout: 'vertical',
+             backgroundColor: '#FFFFFF',
+             borderWidth: 1
+         },
+         series: [{
+             regression: true,
+             regressionSettings: {
+                 type: 'linear',
+                 name: '{{ stock }} = {{ modelString }} | r2: %r',
+                 color: '#ff0000',
+                 tooltip: {
+                     headerFormat: '<b>Regression Line</b><br>',
+                     pointFormat: '{point.y}%'
+                 }
+             },
+
+             name: '{{ stock }}' + ' Observed Returns',
+             color: 'rgba(16, 200, 255, 0.5)',
+             opacity: 0.75,
+             data: {{ dataSet }},
+             tooltip: {
+                 headerFormat: '<b>{series.name}</b><br>',
+                 pointFormat: '{point.y}%'
+             }
+        }]
+});
+    </script>
+   </div>
+  </figure>
+    <Form style="font-family: 'Lucida Grande',sans-serif; text-align: -webkit-center; margin-top: 30px; margin-left: 30px">
+    <div style="display: inline-grid">
+        <form action="{{ url_for('linearRegressionGraph')}}" method="post">
+            <label for="level" style="font-family: 'Lucida Grande',sans-serif; color: white; margin-top: -24px;">Choose the Model Level:</label>
+                <select onchange="setDataListOptions()" name="level" id="level" style="font-family: 'Lucida Grande',sans-serif;color: black;padding: 5px;text-align-last: center">
+                <option value=1>1st Level (Overall ESG Score)</option>
+                <option value=2>2nd Level (Sub Scores)</option>
+                </select>
+            <label for="stock" style="color: white; margin-top: 20px">Select Stock</label>
+                <input type="text" style="background-color: #ffffff; margin-top: 5px; padding: 5px; text-align: center;" list="stocks" id="stock" name="stock" oninput="disableRenderButton(chooseStockList());"><br><br>
+                <datalist id="stocks" style="text-transform: uppercase">
+                </datalist>
+            <input type="submit" id="submitButton" disabled value="Rerender Chart" style="display: flex; margin-top: -5px; color: black; padding: 8px; background-color: white; font-size: medium; justify-content: center">
+        </form>
+    </div>
+    </Form>
+  <div style="display: flex; justify-content: center">
+   <form action="http://127.0.0.1:5000/">
+    <button id="BackButton">
+     Back to Chart Selection
+    </button>
+   </form>
+  </div>
+ </body>
+</html>
+ </body>

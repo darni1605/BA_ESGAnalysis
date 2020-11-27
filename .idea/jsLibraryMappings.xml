@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{accessibility, data, export-data, exporting, highcharts, highcharts-more, highslide, highstock, jquery, jquery-3.1.1, require.js}" />
+    <file url="file://$PROJECT_DIR$" libraries="{accessibility, data, export-data, exporting, heatmap, highcharts, highcharts-more, highcharts-regression, highslide, highstock, histogram-bellcurve, jquery, jquery-3.1.1, require.js}" />
   </component>
 </project>

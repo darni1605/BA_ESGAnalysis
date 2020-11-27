@@ -8,7 +8,7 @@ def oneSampleTTest(arr, testAgainst):
     median = np.nanmedian(arr)
     if isNormal(arr, 0.90):
         tTest = ttest_1samp(arr, testAgainst)
-        print('t-statistic = %6.4f pValue = %6.4f' % tTest)
+        print('t-statistic = %6.4f pValue = %6.8f' % tTest)
         print('Median: %6.6f' % median)
         print('Average: %6.6f' % avg)
     else:

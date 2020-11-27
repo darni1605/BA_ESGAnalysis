@@ -55,6 +55,7 @@ def groupAccordingToAverage(ESGScoreChanges):
 
 def groupInQuantiles(ESGScoreChanges):
     avgPerStock = getAverageESGForAllStocks(ESGScoreChanges)
+    avgPerStock = avgPerStock[~np.isnan(avgPerStock)].copy()
     numberOfStocks = len(avgPerStock)
     oneThirdQuantile = np.nanquantile(avgPerStock, 1 / 3)
     twoThirdQuantile = np.nanquantile(avgPerStock, 2 / 3)

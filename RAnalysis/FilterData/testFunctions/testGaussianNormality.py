@@ -1,5 +1,5 @@
 from scipy.stats import shapiro
-
+import numpy as np
 
 def isNormal(dataSet, confidenceLevel):
     testStat, p = shapiro(dataSet)
@@ -10,7 +10,9 @@ def isNormal(dataSet, confidenceLevel):
 
 
 def excludeNonNormal(dataFrame, confidenceLevel):
-    if not isNormal(dataFrame.iloc[:, 0], confidenceLevel):
+    dependentVariable = dataFrame.iloc[:, 0]
+    dependentVariable = dependentVariable[~np.isnan(dependentVariable)].copy()
+    if not isNormal(dependentVariable, confidenceLevel):
         return
     else:
         return dataFrame

@@ -1,10 +1,11 @@
 from highcharts import Highchart, Highstock
+import highcharts.highcharts.highchart_types
 
 
-def createHighchart(data, options):
+def createHighchart(data, options, seriesOptions):
     chart = Highchart()
+    chart.add_data_set(data[1], name=data[0])
     chart.set_dict_options(options)
-    chart.add_data_set(data)
     return chart
 
 

@@ -87,52 +87,165 @@ companyIdentifier = list(stockReturns_df)
 nrOfColumns = len(stockPrices_df.columns)
 
 # stock grouped in industries
-communicationServicesStocks = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                                          r'Data\CSV-files\StockReturnsPerIndustry\'Communication Services.csv'
-                                          , sep=';', header=0, index_col=0)
-consumerDiscretionaryStocks = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                                          r'Data\CSV-files\StockReturnsPerIndustry\'Consumer Discretionary.csv'
-                                          , sep=';', header=0, index_col=0)
-consumerStaplesStocks = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                                    r'Data\CSV-files\StockReturnsPerIndustry\'Consumer Staples.csv'
-                                    , sep=';', header=0, index_col=0)
-energyStocks = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                           r'Data\CSV-files\StockReturnsPerIndustry\'Energy.csv'
-                           , sep=';', header=0, index_col=0)
-financialsStocks = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                               r'Data\CSV-files\StockReturnsPerIndustry\'Financials.csv'
-                               , sep=';', header=0, index_col=0)
-healthCareStocks = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                               r'Data\CSV-files\StockReturnsPerIndustry\'Health Care.csv'
-                               , sep=';', header=0, index_col=0)
-industrialsStocks = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                                r'Data\CSV-files\StockReturnsPerIndustry\'Industrials.csv'
+communicationServicesStocks_lvl1 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                               r'Data\CSV-files\StockReturnsPerIndustry_lvl1\'Communication '
+                                               r'Services.csv '
+                                               , sep=';', header=0, index_col=0)
+consumerDiscretionaryStocks_lvl1 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                               r'Data\CSV-files\StockReturnsPerIndustry_lvl1\'Consumer '
+                                               r'Discretionary.csv '
+                                               , sep=';', header=0, index_col=0)
+consumerStaplesStocks_lvl1 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                         r'Data\CSV-files\StockReturnsPerIndustry_lvl1\'Consumer Staples.csv'
+                                         , sep=';', header=0, index_col=0)
+energyStocks_lvl1 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                r'Data\CSV-files\StockReturnsPerIndustry_lvl1\'Energy.csv'
                                 , sep=';', header=0, index_col=0)
-informationTechnologyStocks = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                                          r'Data\CSV-files\StockReturnsPerIndustry\'Information Technology.csv'
-                                          , sep=';', header=0, index_col=0)
-materialsStocks = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                              r'Data\CSV-files\StockReturnsPerIndustry\'Materials.csv'
-                              , sep=';', header=0, index_col=0)
-realEstateStocks = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                               r'Data\CSV-files\StockReturnsPerIndustry\'Real Estate.csv'
-                               , sep=';', header=0, index_col=0)
-utilitiesStocks = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                              r'Data\CSV-files\StockReturnsPerIndustry\'Utilities.csv'
-                              , sep=';', header=0, index_col=0)
+financialsStocks_lvl1 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                    r'Data\CSV-files\StockReturnsPerIndustry_lvl1\'Financials.csv'
+                                    , sep=';', header=0, index_col=0)
+healthCareStocks_lvl1 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                    r'Data\CSV-files\StockReturnsPerIndustry_lvl1\'Health Care.csv'
+                                    , sep=';', header=0, index_col=0)
+industrialsStocks_lvl1 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                     r'Data\CSV-files\StockReturnsPerIndustry_lvl1\'Industrials.csv'
+                                     , sep=';', header=0, index_col=0)
+informationTechnologyStocks_lvl1 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                               r'Data\CSV-files\StockReturnsPerIndustry_lvl1\'Information Technology.csv'
+                                               , sep=';', header=0, index_col=0)
+materialsStocks_lvl1 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                   r'Data\CSV-files\StockReturnsPerIndustry_lvl1\'Materials.csv'
+                                   , sep=';', header=0, index_col=0)
+realEstateStocks_lvl1 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                    r'Data\CSV-files\StockReturnsPerIndustry_lvl1\'Real Estate.csv'
+                                    , sep=';', header=0, index_col=0)
+utilitiesStocks_lvl1 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                   r'Data\CSV-files\StockReturnsPerIndustry_lvl1\'Utilities.csv'
+                                   , sep=';', header=0, index_col=0)
 
-listOfStocksPerIndustry = [communicationServicesStocks, consumerDiscretionaryStocks, consumerStaplesStocks,
-                           energyStocks, financialsStocks, healthCareStocks, industrialsStocks,
-                           informationTechnologyStocks, materialsStocks, realEstateStocks, utilitiesStocks]
+listOfStocksPerIndustry_lvl1 = [communicationServicesStocks_lvl1, consumerDiscretionaryStocks_lvl1,
+                                consumerStaplesStocks_lvl1, energyStocks_lvl1, financialsStocks_lvl1,
+                                healthCareStocks_lvl1, industrialsStocks_lvl1, informationTechnologyStocks_lvl1,
+                                materialsStocks_lvl1, realEstateStocks_lvl1, utilitiesStocks_lvl1]
 
-communicationServicesStocks = listOfStocksPerIndustry[0].columns
-consumerDiscretionaryStocks = listOfStocksPerIndustry[1].columns
-consumerStaplesStocks = listOfStocksPerIndustry[2].columns
-energyStocks = listOfStocksPerIndustry[3].columns
-financialsStocks = listOfStocksPerIndustry[4].columns
-healthCareStocks = listOfStocksPerIndustry[5].columns
-industrialsStocks = listOfStocksPerIndustry[6].columns
-informationTechnologyStocks = listOfStocksPerIndustry[7].columns
-materialsStocks = listOfStocksPerIndustry[8].columns
-realEstateStocks = listOfStocksPerIndustry[9].columns
-utilitiesStocks = listOfStocksPerIndustry[10].columns
+communicationServicesStocks_lvl1 = listOfStocksPerIndustry_lvl1[0].columns
+consumerDiscretionaryStocks_lvl1 = listOfStocksPerIndustry_lvl1[1].columns
+consumerStaplesStocks_lvl1 = listOfStocksPerIndustry_lvl1[2].columns
+energyStocks_lvl1 = listOfStocksPerIndustry_lvl1[3].columns
+financialsStocks_lvl1 = listOfStocksPerIndustry_lvl1[4].columns
+healthCareStocks_lvl1 = listOfStocksPerIndustry_lvl1[5].columns
+industrialsStocks_lvl1 = listOfStocksPerIndustry_lvl1[6].columns
+informationTechnologyStocks_lvl1 = listOfStocksPerIndustry_lvl1[7].columns
+materialsStocks_lvl1 = listOfStocksPerIndustry_lvl1[8].columns
+realEstateStocks_lvl1 = listOfStocksPerIndustry_lvl1[9].columns
+utilitiesStocks_lvl1 = listOfStocksPerIndustry_lvl1[10].columns
+
+communicationServicesStocks_lvl2 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                               r'Data\CSV-files\StockReturnsPerIndustry_lvl2\'Communication '
+                                               r'Services.csv '
+                                               , sep=';', header=0, index_col=0)
+consumerDiscretionaryStocks_lvl2 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                               r'Data\CSV-files\StockReturnsPerIndustry_lvl2\'Consumer '
+                                               r'Discretionary.csv '
+                                               , sep=';', header=0, index_col=0)
+consumerStaplesStocks_lvl2 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                         r'Data\CSV-files\StockReturnsPerIndustry_lvl2\'Consumer Staples.csv'
+                                         , sep=';', header=0, index_col=0)
+energyStocks_lvl2 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                r'Data\CSV-files\StockReturnsPerIndustry_lvl2\'Energy.csv'
+                                , sep=';', header=0, index_col=0)
+financialsStocks_lvl2 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                    r'Data\CSV-files\StockReturnsPerIndustry_lvl2\'Financials.csv'
+                                    , sep=';', header=0, index_col=0)
+healthCareStocks_lvl2 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                    r'Data\CSV-files\StockReturnsPerIndustry_lvl2\'Health Care.csv'
+                                    , sep=';', header=0, index_col=0)
+industrialsStocks_lvl2 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                     r'Data\CSV-files\StockReturnsPerIndustry_lvl2\'Industrials.csv'
+                                     , sep=';', header=0, index_col=0)
+informationTechnologyStocks_lvl2 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                               r'Data\CSV-files\StockReturnsPerIndustry_lvl2\'Information '
+                                               r'Technology.csv '
+                                               , sep=';', header=0, index_col=0)
+materialsStocks_lvl2 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                   r'Data\CSV-files\StockReturnsPerIndustry_lvl2\'Materials.csv'
+                                   , sep=';', header=0, index_col=0)
+realEstateStocks_lvl2 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                    r'Data\CSV-files\StockReturnsPerIndustry_lvl2\'Real Estate.csv'
+                                    , sep=';', header=0, index_col=0)
+utilitiesStocks_lvl2 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                   r'Data\CSV-files\StockReturnsPerIndustry_lvl2\'Utilities.csv'
+                                   , sep=';', header=0, index_col=0)
+
+listOfStocksPerIndustry_lvl2 = [communicationServicesStocks_lvl2, consumerDiscretionaryStocks_lvl2,
+                                consumerStaplesStocks_lvl2, energyStocks_lvl2, financialsStocks_lvl2,
+                                healthCareStocks_lvl2, industrialsStocks_lvl2, informationTechnologyStocks_lvl2,
+                                materialsStocks_lvl2, realEstateStocks_lvl2, utilitiesStocks_lvl2]
+
+communicationServicesStocks_lvl2 = listOfStocksPerIndustry_lvl1[0].columns
+consumerDiscretionaryStocks_lvl2 = listOfStocksPerIndustry_lvl1[1].columns
+consumerStaplesStocks_lvl2 = listOfStocksPerIndustry_lvl1[2].columns
+energyStocks_lvl2 = listOfStocksPerIndustry_lvl1[3].columns
+financialsStocks_lvl2 = listOfStocksPerIndustry_lvl1[4].columns
+healthCareStocks_lvl2 = listOfStocksPerIndustry_lvl1[5].columns
+industrialsStocks_lvl2 = listOfStocksPerIndustry_lvl1[6].columns
+informationTechnologyStocks_lvl2 = listOfStocksPerIndustry_lvl1[7].columns
+materialsStocks_lvl2 = listOfStocksPerIndustry_lvl1[8].columns
+realEstateStocks_lvl2 = listOfStocksPerIndustry_lvl1[9].columns
+utilitiesStocks_lvl2 = listOfStocksPerIndustry_lvl1[10].columns
+
+filteredStockReturns = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                   r'Data\CSV-files\FilteredStocks\FilteredStocksReturns.csv'
+                                   , sep=';', header=0, index_col=0)
+listOfFilteredStockNames = list(filteredStockReturns.columns)
+
+esgBetasWithOutliers = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                   r'Data\CSV-files\ESGBetas\OverallScoreBetasWithOutliers.csv'
+                                   , sep=';', header=0, index_col=0)
+esgBetasWithoutOutliers = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                      r'Data\CSV-files\ESGBetas\OverallScoreBetasWithoutOutliers.csv'
+                                      , sep=';', header=0, index_col=0)
+envBetasWithOutliers = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                   r'Data\CSV-files\ESGBetas\EnvBetasWithOutliers.csv'
+                                   , sep=';', header=0, index_col=0)
+envBetasWithoutOutliers = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                      r'Data\CSV-files\ESGBetas\EnvBetasWithoutOutliers.csv'
+                                      , sep=';', header=0, index_col=0)
+socBetasWithOutliers = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                   r'Data\CSV-files\ESGBetas\SocBetasWithOutliers.csv'
+                                   , sep=';', header=0, index_col=0)
+socBetasWithoutOutliers = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                      r'Data\CSV-files\ESGBetas\SocBetasWithoutOutliers.csv'
+                                      , sep=';', header=0, index_col=0)
+govBetasWithOutliers = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                   r'Data\CSV-files\ESGBetas\GovBetasWithOutliers.csv'
+                                   , sep=';', header=0, index_col=0)
+govBetasWithoutOutliers = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                      r'Data\CSV-files\ESGBetas\GovBetasWithoutOutliers.csv'
+                                      , sep=';', header=0, index_col=0)
+ESGHistogramTableData = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Results\graphs'
+                                    r'\ESGHistogramTableData.csv '
+                                    , sep=';', header=0, index_col=0)
+
+survivingStockModels1stLevel = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                           r'Data\CSV-files\1stLevelSurvivingModels_csv.csv'
+                                           , sep=';', header=0, index_col=0)
+survivingStockModels2ndLevel = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
+                                           r'Data\CSV-files\2ndLevelSurvivingModels_csv.csv'
+                                           , sep=';', header=0, index_col=0)
+
+expectedReturns1stModels = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Results\graphs'
+                                       r'\1stLevelExpectedReturnsForGraph.csv '
+                                       , sep=';', header=0, index_col=0)
+expectedReturns2ndModels = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Results\graphs'
+                                       r'\2ndLevelExpectedReturnsForGraph.csv '
+                                       , sep=';', header=0, index_col=0)
+listOfStock1stLevel = list(expectedReturns1stModels.columns)
+listOfStock2ndLevel = list(expectedReturns2ndModels.columns)
+
+barChartData1stLevel = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Results\graphs'
+                                   r'\1stLevelBarChartMeanMedian.csv '
+                                   , sep=';', header=0)
+barChartData2ndLevel = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Results\graphs'
+                                   r'\2ndLevelBarChartMeanMedian.csv '
+                                   , sep=';', header=0)

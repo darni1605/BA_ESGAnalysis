@@ -1,4 +1,4 @@
-# normality test for stock returns #
+import numpy as np
 from ImportFilesPackages.ImportFiles import companyIdentifier
 from RAnalysis.FilterData.testFunctions.testGaussianNormality import excludeNonNormal
 from RAnalysis.FilterData.testFunctions.testHeteroscedasticty import excludeHeteroscedasticity
@@ -12,15 +12,15 @@ for stock in companyIdentifier:
     listDf.append(df)
 normalListDf = []
 for df in listDf:
-    normalDf = excludeNonNormal(df, 0.99)
+    normalDf = excludeNonNormal(df, 0.95)
     normalListDf.append(normalDf)
 print('Original number of stocks: ' + str(len(listDf)))
 print('Number of stocks following normality: ' + str(len(normalListDf)))
-# RESULT: no stock was excluded for confidence level 99% #
+# RESULT: no stock was excluded for confidence level --> fat-tail problematic #
 
 # heteroscedasticity test for linear regression models #
 nonHeteroscedasticityList = []
-for df in normalListDf:
+for df in listDf:
     nonHeteroscedasticityDf = excludeHeteroscedasticity(df)
     nonHeteroscedasticityList.append(nonHeteroscedasticityDf)
 

@@ -1,0 +1,62 @@
+<style>
+    #ESGDataTable {
+        border-collapse: collapse;
+        width: auto;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+    }
+    #ESGDataTable td, #ESGDataTable th {
+        border: 1px solid #111;
+        padding: 8px;
+        background-color: white;
+    }
+
+    #ESGDataTable tr:hover {
+        background-color: #ddd;
+    }
+
+    #ESGDataTable th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: rgba(16, 200, 255, 0.5);
+        color: white;
+}
+</style>
+<div id="ESGDataTable" style="display: flex; justify-content: center; margin-left: 20px">
+<table id="betaDistTable" style="font-family: Lucida Grande, sans-serif">
+    <tr>
+        <th>Statistics</th>
+        <th>{{ dataName }}</th>
+    </tr>
+    <tr>
+        <td>Number of Betas</td>
+        <td>{{ tableData[0] }}</td>
+    </tr>
+    <tr>
+        <td>Mean Beta</td>
+        <td>{{ tableData[1] }}</td>
+    </tr>
+    <tr>
+        <td>Median Beta</td>
+        <td>{{ tableData[2] }}</td>
+    </tr>
+    <tr>
+        <td>Standard Error</td>
+        <td>{{ tableData[3] }}</td>
+    </tr>
+    <tr>
+        <td>Normal?</td>
+        <td>{{ tableData[4] }}</td>
+    </tr>
+    <tr>
+        <td>t-statistic</td>
+        <td>{{ tableData[5] }}</td>
+    </tr>
+    <tr>
+        <td>p-value</td>
+        <td>{{ tableData[6] }}</td>
+    </tr>
+</table>
+</div>

@@ -24,7 +24,8 @@ def PerformanceComparisonChart(stock, comparableName, comparableReturns, chartID
         'chart': {
             'renderTo': chartID,
             'borderWidth': 1,
-            'marginRight': 50
+            'marginRight': 50,
+            'height': 500
         },
         'title': {
             'text': 'Performance Comparison'
@@ -46,6 +47,9 @@ def PerformanceComparisonChart(stock, comparableName, comparableReturns, chartID
         'tooltip': {
             'pointFormat': '{series.name}: <b>{point.y:.2f}%</b>'
         },
+        'legend': {
+            'enabled': True
+        }
     }
     listOfDataSets = [stock, dataList1, comparableName, dataList2]
     chart = createHighstock(listOfDataSets, options)

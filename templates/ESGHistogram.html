@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet"/>
+  <script src="https://code.highcharts.com/highcharts.js">
+  </script>
+  <script src="https://code.highcharts.com/modules/histogram-bellcurve.js">
+  </script>
+  <script src="https://code.highcharts.com/modules/exporting.js">
+  </script>
+  <script src="https://code.highcharts.com/modules/accessibility.js">
+  </script>
+  <script type="text/javascript">
+      window.onload = function () {
+          document.getElementById("BackButton").onclick = function () {
+              location.href = "http://127.0.0.1:5000/";
+          };
+      }
+  </script>
+  <script>
+   function disableRenderButton() {
+            var submitButton = document.getElementById('submitButton');
+            var currentValue = document.getElementById('distribution').value;
+            const allowedValues = ['Overall ESG Score', 'Environment Score', 'Social Score', 'Governance Score'];
+            if (allowedValues.includes(currentValue)) {
+                submitButton.removeAttribute('disabled')
+            }
+        }
+  </script>
+  <style type="text/css">
+   body {background-color:rgb(56 54 54);}
+   #BackButton {
+       margin-top: 40px;
+       padding:0.35em 1.2em;
+       border: rgba(145,233,255,0.6);
+       font-family:'Lucida Grande',sans-serif;
+       font-size: larger;
+       color:black;
+       background: rgba(16, 200, 255, 0.5);
+       text-align:center;
+   }
+   #BackButton:hover {
+       background-color:rgba(145,233,255,0.6);
+   }
+   #ESGDataTable {
+       border-collapse: collapse;
+       width: auto;
+       margin-top: 30px;
+       display: flex;
+       justify-content: center;
+   }
+   #ESGDataTable td, #ESGDataTable th {
+       border: 1px solid #111;
+       padding: 8px;
+       background-color: white;
+   }
+   #ESGDataTable tr:hover {
+       background-color: #ddd;
+   }
+
+   #ESGDataTable th {
+       padding-top: 12px;
+       padding-bottom: 12px;
+       text-align: left;
+       background-color: rgba(16, 200, 255, 0.5);
+       color: white;
+   }
+  </style>
+ </head>
+ <body style="margin:0;padding:0">
+  <figure class="highcharts-figure">
+   <div id="container">
+    <script type="text/javascript">
+     Highcharts.chart('container', {
+    title: {
+        text: '{{ title }}'
+    },
+    xAxis: [{
+        title: { text: 'Beta' },
+        alignTicks: false
+    }, {
+        title: { text: 'Histogram' },
+        alignTicks: false,
+        opposite: true
+    }],
+
+    yAxis: [{
+        title: { text: 'Beta' }
+    }, {
+        title: { text: 'Histogram' },
+        opposite: true
+    }],
+
+    series: [{
+        name: 'Histogram',
+        type: 'histogram',
+        color: 'rgba(16, 200, 255, 0.5)',
+        xAxis: 1,
+        yAxis: 1,
+        baseSeries: 's1',
+        zIndex: -1,
+    }, {
+        name: '{{ dataName }}',
+        type: 'scatter',
+        data: {{ data }},
+        color: 'black',
+        id: 's1',
+        marker: {
+            radius: 1.5
+        },
+        tooltip: {
+            pointFormat: 'Beta Value: <b>{point.y:.6f}</b>'
+        }
+    }]
+});
+    </script>
+   </div>
+  </figure>
+  <div id="ESGDataTable" style="display: flex; justify-content: center; margin-left: 20px; margin-top: -15px">
+   <table id="ESGDataTable" style="font-family: Lucida Grande, sans-serif; margin-right: 30px;">
+    <tr>
+     <th>
+      Statistics
+     </th>
+     <th>
+      {{ dataName }}
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Number of Betas
+     </td>
+     <td>
+      {{ tableData[0] }}
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Mean Beta
+     </td>
+     <td>
+      {{ tableData[1] }}
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Median Beta
+     </td>
+     <td>
+      {{ tableData[2] }}
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Standard Error
+     </td>
+     <td>
+      {{ tableData[3] }}
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Normal?
+     </td>
+     <td>
+      {{ tableData[4] }}
+     </td>
+    </tr>
+    <tr>
+     <td>
+      t-statistic
+     </td>
+     <td>
+      {{ tableData[5] }}
+     </td>
+    </tr>
+    <tr>
+     <td>
+      p-value
+     </td>
+     <td>
+      {{ tableData[6] }}
+     </td>
+    </tr>
+   </table>
+  <form style="font-family: 'Lucida Grande',sans-serif; text-align: -webkit-center; margin-top: 90px">
+   <div style="display: table-caption">
+    <form action="{{ url_for('histogramESG')}}" method="post">
+     <label for="distribution" style="color: white">
+      Select Distribution for
+     </label>
+     <input id="distribution" list="distributions" name="distribution" oninput="disableRenderButton()" style="text-align: center; margin-top: 5px; padding: 5px" type="text"/>
+     <br/>
+     <br/>
+     <datalist id="distributions">
+      <option value="Overall ESG Score">
+       <option value="Environment Score">
+        <option value="Social Score">
+         <option value="Governance Score">
+     </datalist>
+     <input id="withoutOutliers" name="withoutOutliers" type="checkbox" style="margin-top: 20px;"/>
+     <label for="withoutOutliers" style="color: white">
+      Exclude Outliers
+     </label>
+     <input disabled="" id="submitButton" style="display: flex; margin-top: 37px; color: black; padding: 8px; background-color: white; font-size: medium; justify-content: center" type="submit" value="Rerender Chart"/>
+    </form>
+   </div>
+  </form>
+  </div>
+  <div style="display: flex; justify-content: center">
+   <form action="http://127.0.0.1:5000/">
+    <button id="BackButton">
+     Back to Chart Selection
+    </button>
+   </form>
+  </div>
+ </body>
+</html>

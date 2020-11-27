@@ -2,28 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/button.css">
-    <link rel="stylesheet" href="../static/containers.css">
+    <link rel="stylesheet" type=text/css href="../static/button.css"/>
+    <link rel="stylesheet" href="../static/containers.css"/>
     <title>Home</title>
 </head>
 <style type="text/css">
-body {
-    background-image: url(../static/homeBackgroundImage.jpg);
-}
+    html, body {
+            margin: 0 auto;
+            background-color: rgb(56 54 54);
+    }
 </style>
 <body>
-    <BaseContainer>
-        <FormContainer>
-            <Form>
-                <MyButton id="Performance Comparison">Performance Comparison</MyButton>
-                <script type="text/javascript"> document.getElementById("Performance Comparison").onclick = function () {
-                location.href = "http://127.0.0.1:5000/PerformanceComparison";
-                };
-                </script>
-                <MyButton id="Histogram ESG Betas">Histogram ESG Betas</MyButton>
-                <MyButton id="Stock Table">Stock Table</MyButton>
-            </Form>
-        </FormContainer>
-    </BaseContainer>
+    <div id="Home" style="display: grid">
+        <div style="display: flex; justify-content: center">
+        <SubTitleContainer style="text-align: center">
+            <br>University of Zurich
+            <br>Department of Informatics
+        </SubTitleContainer>
+        </div>
+        <HomeTitleContainer>
+            <br>"A data-driven approach to study the impact of ESG ratings on S&P 500 stock returns"
+            <div style="font-size: 1.5vw; margin-top: -20px; margin-bottom: 25px">
+                <br style="font-size: 1.5vw"> Bachelor Thesis by Dominik Arni (15-934-326)
+            </div>
+        </HomeTitleContainer>
+        <ChartSelectionTitle>
+            Please Choose a Graph
+        </ChartSelectionTitle>
+        <BaseContainer>
+            <FormContainer>
+                <Form>
+                    <MyButton id="Performance Comparison">Performance Comparison</MyButton>
+                    <script type="text/javascript"> document.getElementById("Performance Comparison").onclick = function () {
+                    location.href = "http://127.0.0.1:5000/PerformanceComparison";
+                    };
+                    </script>
+                    <MyButton id="Histogram ESG Betas">Histogram ESG Betas</MyButton>
+                    <script type="text/javascript"> document.getElementById("Histogram ESG Betas").onclick  = function () {
+                        location.href = "http://127.0.0.1:5000/ESGHistogram";
+                    }</script>
+                    <MyButton id="Linear Regression Graph">Linear Regression Graph</MyButton>
+                    <script type="text/javascript"> document.getElementById('Linear Regression Graph').onclick = function () {
+                        location.href = "http://127.0.0.1:5000/LinearRegressionGraph"
+                    }</script>
+                    <MyButton id="Industry Beta Comparison">Industry Beta Comparison</MyButton>
+                    <script type="text/javascript"> document.getElementById('Industry Beta Comparison').onclick = function () {
+                        location.href = "http://127.0.0.1:5000/IndustryBetaComparison"
+                    }
+                    </script>
+                </Form>
+            </FormContainer>
+        </BaseContainer>
+    </div>
+    <div style="width: 100%; position: absolute; bottom: 0">
+    <img src="{{url_for('static', filename='uzhLogo.jpg')}}" style="position: relative; display: block; float: right; width: 10%"/>
+    </div>
 </body>
 </html>

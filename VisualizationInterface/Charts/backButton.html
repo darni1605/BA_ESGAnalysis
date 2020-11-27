@@ -1,0 +1,28 @@
+<style>
+    #BackButton {
+        margin-top: 80px;
+        padding:0.35em 1.2em;
+        border: rgba(145,233,255,0.6);
+        font-family:'Lucida Grande',sans-serif;
+        font-size: larger;
+        color:black;
+        background: rgba(16, 200, 255, 0.5);
+        text-align:center;
+    }
+    #BackButton:hover {
+        background-color:rgba(16, 200, 255, 0.5);
+    }
+</style>
+
+<div style="display: flex; justify-content: center">
+<Form action="http://127.0.0.1:5000/">
+<button id="BackButton">Back to Chart Selection</button>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("BackButton").onclick = function () {
+            location.href = "http://127.0.0.1:5000/";
+        };
+    }
+</script>
+</Form>
+</div>

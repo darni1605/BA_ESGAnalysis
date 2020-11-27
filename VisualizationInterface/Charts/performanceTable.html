@@ -1,0 +1,55 @@
+<style>
+    #performanceTable {
+        border-collapse: collapse;
+        width: auto;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+    }
+    #performanceTable td, #performanceTable th {
+        border: 1px solid #111;
+        padding: 8px;
+        background-color: white;
+    }
+
+    #performanceTable tr:hover {
+        background-color: #ddd;
+    }
+
+    #performanceTable th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: rgba(16, 200, 255, 0.5);
+        color: white;
+}
+</style>
+<div id="Performance Comparison" style="display: flex; justify-content: center; margin-left: 20px">
+<table id="performanceTable" style="font-family: Lucida Grande, sans-serif">
+    <tr>
+        <th>Figures</th>
+        <th>{{ stock }}</th>
+        <th>{{ comparableName }}</th>
+    </tr>
+    <tr>
+        <td>Mean Return</td>
+        <td>{{ stockMean }}</td>
+        <td>{{ comparableMean }}</td>
+    </tr>
+    <tr>
+        <td>Median Return</td>
+        <td>{{ stockMedian }}</td>
+        <td>{{ comparableMedian }}</td>
+    </tr>
+    <tr>
+        <td>Mean ESG Score</td>
+        <td>{{ stockESGMean }}</td>
+        <td>{{ comparableESGMean }}</td>
+    </tr>
+    <tr>
+        <td>Median ESG Score</td>
+        <td>{{ stockESGMedian }}</td>
+        <td>{{ comparableESGMedian }}</td>
+    </tr>
+</table>
+</div>
