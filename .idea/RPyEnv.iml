@@ -22,6 +22,9 @@
     <orderEntry type="library" name="histogram-bellcurve" level="application" />
     <orderEntry type="library" name="highcharts-regression" level="application" />
   </component>
+  <component name="PackageRequirementsSettings">
+    <option name="removeUnused" value="true" />
+  </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
     <option name="TEMPLATE_FOLDERS">

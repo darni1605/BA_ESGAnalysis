@@ -2,7 +2,7 @@ import numpy as np
 
 from datetime import datetime
 from ImportFilesPackages.ImportFiles import stockReturns_df
-from VisualizationInterface.CreateChart import createHighstock
+from VisualizationInterface.helper.CreateChart import createHighstock
 
 
 def PerformanceComparisonChart(stock, comparableName, comparableReturns, chartID):

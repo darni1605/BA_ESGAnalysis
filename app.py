@@ -1,7 +1,7 @@
 import copy
 
 from bs4 import BeautifulSoup as Soup
-from VisualizationInterface.Charts.PerformanceComparison import PerformanceComparisonChart
+from VisualizationInterface.helper.PerformanceComparison import PerformanceComparisonChart
 from VisualizationInterface.helper.stockTable import getStockTableInfo
 from VisualizationInterface.helper.RegressionChart import getModelString, prepareDataSet
 from VisualizationInterface.helper.industryBarChartSetup import prepareBarDataSetPerIndustry
@@ -40,9 +40,9 @@ def PerformanceComparison(chartID='chart1'):
     soup.head.append(soup.new_tag('style', type='text/css'))
     soup.body['style'] = 'background-color:rgb(56 54 54); margin-block-start: 1em; margin-inline-start: 40px; ' \
                          'margin-inline-end: 40px '
-    changeComparable = Soup(open('VisualizationInterface/Charts/changeComparison.html'), 'html.parser')
-    table = Soup(open('VisualizationInterface/Charts/performanceTable.html'), 'html.parser')
-    backButton = Soup(open('VisualizationInterface/Charts/backButton.html'), 'html.parser')
+    changeComparable = Soup(open('VisualizationInterface/ChartsAddOn/changeComparison.html'), 'html.parser')
+    table = Soup(open('VisualizationInterface/ChartsAddOn/performanceTable.html'), 'html.parser')
+    backButton = Soup(open('VisualizationInterface/ChartsAddOn/backButton.html'), 'html.parser')
     for element in table:
         soup.find('body').append(copy.deepcopy(element))
     for element in changeComparable:
@@ -131,11 +131,11 @@ def IndustryBetaComparison():
     if level == 1:
         categories = ['ESG Beta']
         subtitle = 'Overall ESG Score Betas'
-        table = Soup(open('VisualizationInterface/Charts/IndustryTable1stLevel.html'), 'html.parser')
+        table = Soup(open('VisualizationInterface/ChartsAddOn/IndustryTable1stLevel.html'), 'html.parser')
     else:
         categories = ['Environment Beta', 'Social Beta', 'Governance Beta']
         subtitle = 'Environment, Social and Governance Score Betas'
-        table = Soup(open('VisualizationInterface/Charts/IndustryTable2ndLevel.html'), 'html.parser')
+        table = Soup(open('VisualizationInterface/ChartsAddOn/IndustryTable2ndLevel.html'), 'html.parser')
 
     [element.extract() for element in soup('table')]
     [element.extract() for element in soup('th')]
