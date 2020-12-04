@@ -4,13 +4,13 @@ from RAnalysis.RTools.PrintRSummary import printDataSetSummary
 from RAnalysis.RTools.tTest import *
 import pandas as pd
 
-
+# Extract all betas, p-values of Environment, Social and Governance factors
 listOfColumnNames = []
 for model in cleanListOfDf:
     listOfColumnNames.append(model.columns)
 extractedSummaries = extractSummaries(cleanListOfDf)
 extractedCoefficients = extractCoefficients(extractedSummaries)
-envBetas, envPValues, socBetas, socPValues, govBetas, govPValues = extractSubScores(
+envBetas, envPValues, socBetas, socPValues, govBetas, govPValues = extractSubScoresBetas(
     listOfColumnNames, extractedCoefficients)
 
 envBetas = envBetas[~np.isnan(envBetas)]
@@ -31,6 +31,7 @@ print('Amount of non NaN Social betas with and without outliers: %2d & %2d'
 print('Amount of non NaN Governance betas with and without outliers: %2d & %2d'
       % (np.count_nonzero(~np.isnan(govBetas)), np.count_nonzero(~np.isnan(govBetasWithoutOutliers))))
 
+# calculate individual significance
 envSignCount, envNoSignCount = countSignificantFactors(envPValues, 0.05)
 envPercentage = 100 * envSignCount / (envSignCount + envNoSignCount)
 socSignCount, socNoSignCount = countSignificantFactors(socPValues, 0.05)
@@ -38,6 +39,7 @@ socPercentage = 100 * socSignCount / (socSignCount + socNoSignCount)
 govSignCount, govNoSignCount = countSignificantFactors(govPValues, 0.05)
 govPercentage = 100 * govSignCount / (govSignCount + govNoSignCount)
 
+# print data sample summary
 envBetas_df = pd.DataFrame(envBetas)
 envBetasWithoutOutliers_df = pd.DataFrame(envBetasWithoutOutliers)
 socBetas_df = pd.DataFrame(socBetas)

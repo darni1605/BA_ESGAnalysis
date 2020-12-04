@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 
 
+# get industry with stock ticker
 def getIndustry(stock):
     i = 0
     while i < len(sp500_Industries):
@@ -12,6 +13,7 @@ def getIndustry(stock):
             i += 1
 
 
+# return list of all stock tickers per industry
 def groupPerIndustry(industry):
     i = 0
     industryGroups = []
@@ -25,6 +27,7 @@ def groupPerIndustry(industry):
     return industryGroups
 
 
+# return all stock returns per industry
 def getStockReturnsPerIndustry(industry):
     returnsPerIndustry = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
                                      r'Data\CSV-files\StockReturnsPerIndustry\'' + industry + '',
@@ -33,6 +36,7 @@ def getStockReturnsPerIndustry(industry):
     return returnsPerIndustry
 
 
+# # save lists of all stock returns of an industry
 # def saveStockReturnsPerIndustry():
 #     industries = sp500_Industries.iloc[:, 1].unique()
 #     filteredStockList = []
@@ -51,6 +55,7 @@ def getStockReturnsPerIndustry(industry):
 #                                            , sep=';')
 #
 #
+# # save filtered stocks (1st Level)
 # def saveFilteredStocks():
 #     filteredStockList = []
 #     for stock in nonMultiColList:
@@ -61,6 +66,7 @@ def getStockReturnsPerIndustry(industry):
 #                           , sep=';')
 #
 #
+# # save extracted ESG coefficients (1st and 2nd Level)
 # def saveESGBetas():
 #     esgBetasWithOutliers_df = pd.DataFrame(data=extractedESGBetas, columns=['ESGBetasWithOutliers'])
 #     esgBetasWithoutOutliers_df = pd.DataFrame(data=ESGBetasWithoutOutliers,

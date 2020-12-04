@@ -14,11 +14,13 @@ from VisualizationInterface.helper.IndustryMatch import industryMatch
 app = Flask(__name__)
 
 
+# Starting page
 @app.route('/')
 def home():
     return render_template('Home.html')
 
 
+# 1st approach: use function to create new Highstock chart html file every time other stocks are selected
 @app.route('/PerformanceComparison', methods=['GET', 'POST'])
 def PerformanceComparison(chartID='chart1'):
     stock = request.args.get('stock', default='ABBV', type=str)
@@ -59,6 +61,7 @@ def PerformanceComparison(chartID='chart1'):
                            comparableESGMedian=comparableESGMedian)
 
 
+# 2nd approach: Render highchart from prewritten html file (allows to include series options)
 @app.route('/ESGHistogram', methods=['POST', 'GET'])
 def histogramESG():
     distribution = request.args.get('distribution', default='Overall ESG Score', type=str)
@@ -109,6 +112,7 @@ def histogramESG():
     return render_template('ESGHistogram.html', data=flattenedData, title=title, dataName=dataName, tableData=tableData)
 
 
+# 2nd approach
 @app.route('/LinearRegressionGraph')
 def linearRegressionGraph():
     stock = request.args.get('stock', default='ABBV', type=str)
@@ -121,6 +125,7 @@ def linearRegressionGraph():
                            stockList2ndLevel=json.dumps(listOfStock2ndLevel))
 
 
+# 2nd approach
 @app.route('/IndustryBetaComparison')
 def IndustryBetaComparison():
     level = request.args.get('level', default=1, type=int)

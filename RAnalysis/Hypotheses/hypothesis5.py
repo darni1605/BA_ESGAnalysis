@@ -3,8 +3,8 @@ from RAnalysis.RTools.ExtractCoefficients import *
 from RAnalysis.RTools.GenerateModels import createDFModels
 from RAnalysis.RTools.tTest import oneSampleTTest
 
-# Display amount of stocks and number of data points per industry
 
+# print amount of stocks per industry with amount of total data points
 industryNames = sp500_Industries.iloc[:, 1].unique()
 
 for i in range(0, len(listOfStocksPerIndustry_lvl1)):
@@ -13,10 +13,10 @@ for i in range(0, len(listOfStocksPerIndustry_lvl1)):
     for count in countPerColumn:
         currentDataPointCount += count
     print(
-        'The %s sector has %d stocks with %d data points' % (industryNames[i], len(listOfStocksPerIndustry_lvl1[i].columns),
-                                                             currentDataPointCount))
+        'The %s sector has %d stocks with %d data points' % (industryNames[i], len(listOfStocksPerIndustry_lvl1[i]
+                                                                                   .columns), currentDataPointCount))
 
-# calculate the average & median ESG beta for each industry and test with hypothesis test
+# extract ESG Betas, p-values, significance percentage per industry with and without outliers
 listOfExtractedESGBetas = []
 listOfExtractedESGBetasPValues = []
 for industry in listOfStocksPerIndustry_lvl1:
@@ -221,14 +221,10 @@ print('Has no outliers: there is evidence for difference to zero on a 90% confid
 print('Mean and average smaller than zero --> indicates negative correlation')
 print('Percentage of individual stocks with significant ESG betas: %6.2f%%' % utPercentageOfSignificance)
 
-print('\nRESULT 1: The average and median ESG beta are for all industries smaller than zero')
-print('RESULT 2: With outliers, the ESG betas of all industries except Communication Services, Consumer Staples, '
-      'Health Care, IT and Materials are statistically different from zero')
-print('RESULT 3: Without outliers, the ESG betas of all industries except Materials are significantly different from '
-      'zero')
-print('RESULT 4: With outliers, in the Consumer Staples industry with a ESG beta of -0.000392 the ESG ratings seem to '
+print('\nRESULT 1: The average and median ESG beta are for all industries smaller than zero except IT')
+print('RESULT 2: With outliers, in the Consumer Staples industry with a ESG beta of -0.000392 the ESG ratings seem to '
       'have the largest impact, the least impact is in IT with a slightly positive beta of 0.000034.')
-print('RESULT 5: Without outliers, the lowest beta is in the energy industry with a mean of -0.000303. The highest '
+print('RESULT 3: Without outliers, the lowest beta is in the energy industry with a mean of -0.000303. The highest '
       'beta has Materials with -0.000047.')
-print('RESULT 6: Again the findings from the hypothesis before are in line with the findings of this hypothesis --> '
+print('RESULT 4: Again the findings from the hypothesis before are in line with the findings of this hypothesis --> '
       'negative correlation ESG ratings & stock return')

@@ -1,6 +1,7 @@
 import numpy as np
 
 
+# randomly split a df in numberOfFrac sub-dfs
 def randomlySplitDf(dataFrame, numberOfFrac):
     shuffledDf = dataFrame.sample(frac=1)
     listOfFrac = np.array_split(shuffledDf, numberOfFrac)
@@ -8,6 +9,7 @@ def randomlySplitDf(dataFrame, numberOfFrac):
     return listOfFrac
 
 
+# save the randomly split dfs
 def saveRandomSplit(dataFrame, numberOfFrac, filename):
     listOfFrac = randomlySplitDf(dataFrame, numberOfFrac)
     for i in range(0, len(listOfFrac)):

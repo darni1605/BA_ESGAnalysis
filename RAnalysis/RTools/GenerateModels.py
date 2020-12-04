@@ -6,6 +6,7 @@ from ImportFilesPackages.ImportFiles import stockReturns_df, marketPremium, SMB,
 from ImportFilesPackages.ImportRPackages import stats
 
 
+# create string of model from df
 def createRString(df):
     columnNames = df.columns
     rString = columnNames[0] + '~'
@@ -17,6 +18,7 @@ def createRString(df):
     return rString
 
 
+# create a linear model using R
 def createRModel(df):
     pandas2ri.activate()
     rModelString = createRString(df)
@@ -24,6 +26,7 @@ def createRModel(df):
     return rModel
 
 
+# create a dataframe model with stock ticker and model level as input
 def createDFModel(stock, level):
     stockReturns = stockReturns_df[stock]
     adjustedStockReturns = stockReturns - riskFree
@@ -52,6 +55,7 @@ def createDFModel(stock, level):
     return df
 
 
+# loop through a list of models to create dataframe models
 def createDFModels(listOfStocks, level):
     modelList = []
     for stock in listOfStocks:

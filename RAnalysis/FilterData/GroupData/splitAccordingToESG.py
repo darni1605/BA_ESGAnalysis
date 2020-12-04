@@ -3,9 +3,7 @@ from math import isnan
 from ImportFilesPackages.ImportFiles import OverallESGScores_df, stockReturns_df
 
 
-# Split the dataset into three groups: low, medium & high ESG score
-# E.g. low: 1/3 quantile of all ESG Score
-
+# return subset of stock returns with stock model list as input
 def filterReturns(stockModelList):
     tickerList = []
     for i in range(0, len(stockModelList)):
@@ -14,6 +12,7 @@ def filterReturns(stockModelList):
     return filteredReturns
 
 
+# return subset of ESG scores with stock model list as input
 def filterESGScores(stockModelList):
     ESGListToExamine = []
     for i in range(0, len(stockModelList)):
@@ -22,13 +21,15 @@ def filterESGScores(stockModelList):
     return filteredESGDf
 
 
-def getAverageESGForAllStocks(ESGScoreChanges):
-    listOfAvg = ESGScoreChanges.mean()
+# return average of ESG scores per stock
+def getAverageESGForAllStocks(ESGScores):
+    listOfAvg = ESGScores.mean()
     return listOfAvg
 
 
-def getESGMarketAverage(ESGScoreChanges):
-    avgPerStock = getAverageESGForAllStocks(ESGScoreChanges)
+# return average of ESG score of averages of ESG scores per stock
+def getESGMarketAverage(ESGScores):
+    avgPerStock = getAverageESGForAllStocks(ESGScores)
     numberOfAvg = len(avgPerStock)
     sumOfAvg = 0
     for avg in avgPerStock:
@@ -38,6 +39,7 @@ def getESGMarketAverage(ESGScoreChanges):
     return marketESGAvg
 
 
+# split stocks in two groups: high above and low below market ESG average
 def groupAccordingToAverage(ESGScoreChanges):
     avgPerStock = getAverageESGForAllStocks(ESGScoreChanges)
     marketESGAvg = getESGMarketAverage(ESGScoreChanges)
@@ -53,6 +55,7 @@ def groupAccordingToAverage(ESGScoreChanges):
     return lowGroup, highGroup
 
 
+# split stocks in three groups according to quantiles --> all groups with almost same number of stocks
 def groupInQuantiles(ESGScoreChanges):
     avgPerStock = getAverageESGForAllStocks(ESGScoreChanges)
     avgPerStock = avgPerStock[~np.isnan(avgPerStock)].copy()

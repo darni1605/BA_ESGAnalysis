@@ -3,6 +3,9 @@ import numpy as np
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 
+# Examine VIF Factor to exclude Factors with multicollinearity
+
+# calculate VIF
 def getVIF(dataFrame):
     df = dataFrame.drop(dataFrame.columns[0], axis=1)
     df.dropna(axis=1, how='all', inplace=True)
@@ -15,6 +18,7 @@ def getVIF(dataFrame):
     return vif_data
 
 
+# Exclude all columns with VIF Factor below limit (highest VIF factor excluded)
 # set limit for exclusion to either 5 or 10
 def excludeMultiCollinearity(dataFrame, limit):
     vif_data = getVIF(dataFrame)

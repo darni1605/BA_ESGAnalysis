@@ -1,7 +1,7 @@
 from highcharts import Highchart, Highstock
-import highcharts.highcharts.highchart_types
 
 
+# function to create highchart
 def createHighchart(data, options, seriesOptions):
     chart = Highchart()
     chart.add_data_set(data[1], name=data[0])
@@ -9,6 +9,7 @@ def createHighchart(data, options, seriesOptions):
     return chart
 
 
+# function to create highstock (highcharts for stocks)
 def createHighstock(listOfDataSets, options):
     chart = Highstock()
     for i in range(0, len(listOfDataSets), 2):

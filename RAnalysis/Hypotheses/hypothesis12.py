@@ -1,7 +1,7 @@
 from ImportFilesPackages.IndustrySplit import getIndustry
 from RAnalysis.FilterData.filterDataLevel2 import cleanListOfDf
 from ImportFilesPackages.ImportFiles import *
-from RAnalysis.RTools.ExtractCoefficients import extractSummaries, extractSubScores, extractCoefficients, \
+from RAnalysis.RTools.ExtractCoefficients import extractSummaries, extractSubScoresBetas, extractCoefficients, \
     excludeOutliers, countSignificantFactors
 from RAnalysis.RTools.PrintRSummary import printDataSetSummary
 
@@ -17,6 +17,7 @@ materialsModels = []
 realEstateModels = []
 utilitiesModels = []
 
+# group all filtered stocks according to industry affiliation
 for df in cleanListOfDf:
     ticker = df.columns[0]
     industry = getIndustry(ticker)
@@ -44,14 +45,15 @@ for df in cleanListOfDf:
         utilitiesModels.append(df)
 
 
+# function to extract the coefficients, p-values, significance percentages and to conduct the hypothesis test
 def makeH12(listOfModels, title):
     listOfColumnNames = []
     for model in listOfModels:
         listOfColumnNames.append(model.columns)
     summaries = extractSummaries(listOfModels)
     coefficients = extractCoefficients(summaries)
-    envBeta, envP, socBeta, socP, govBeta, govP = extractSubScores(listOfColumnNames,
-                                                                   coefficients)
+    envBeta, envP, socBeta, socP, govBeta, govP = extractSubScoresBetas(listOfColumnNames,
+                                                                        coefficients)
     envBeta = envBeta[~np.isnan(envBeta)]
     socBeta = socBeta[~np.isnan(socBeta)]
     govBeta = govBeta[~np.isnan(govBeta)]

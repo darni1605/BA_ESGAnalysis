@@ -1,6 +1,7 @@
 from scipy.stats import ttest_ind
 
 
+# count number of stocks under- or outperforming a comparable and return percentage
 def countOutUnderPerformance(returns, comparable, greaterThan):
     avgReturnsPerStock = returns.mean(axis=0)
     count = 0
@@ -15,6 +16,7 @@ def countOutUnderPerformance(returns, comparable, greaterThan):
     return percentageTrue
 
 
+# count amount of individually significant t-tests with two samples
 # returnsList1 is the supposedly bigger one if one tailed
 def countNumberOfSignificantTTests(returnsList1, returnsList2, significanceLevel, isOneTailed):
     significanceCount = 0

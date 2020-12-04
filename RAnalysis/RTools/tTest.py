@@ -3,6 +3,7 @@ from scipy.stats import ttest_1samp, ttest_ind
 from RAnalysis.FilterData.testFunctions.testGaussianNormality import isNormal
 
 
+# conduct one sample t-test
 def oneSampleTTest(arr, testAgainst):
     avg = np.nanmean(arr)
     median = np.nanmedian(arr)
@@ -17,7 +18,8 @@ def oneSampleTTest(arr, testAgainst):
         print('Average: %6.6f' % avg)
 
 
-# Please note: if one tailed, the first sample is expected to be bigger #
+# conduct two sample t-test
+# Please note: if one tailed, the first sample is expected to be bigger
 def twoSampleTTest(arr1, arr2, hasEqualVar, isOneTailed):
     avg1 = np.exp(np.nanmean(arr1)) - 1
     avg2 = np.exp(np.nanmean(arr2)) - 1

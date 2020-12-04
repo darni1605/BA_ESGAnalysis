@@ -2,7 +2,6 @@ import numpy as np
 from ImportFilesPackages.ImportFiles import stockReturns_df
 from ImportFilesPackages.ImportRandomSamples import *
 from RAnalysis.FilterData.testFunctions.testGaussianNormality import isNormal
-from RAnalysis.RTools.PlotGraphs import histogram
 from RAnalysis.RTools.PrintRSummary import printDataSetSummary
 from RAnalysis.FilterData.filterDataLevel1 import nonMultiColList
 from RAnalysis.FilterData.GroupData.splitAccordingToESG import groupInQuantiles, filterESGScores

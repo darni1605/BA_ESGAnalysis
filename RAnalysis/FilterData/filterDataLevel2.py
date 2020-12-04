@@ -6,6 +6,10 @@ from RAnalysis.FilterData.testFunctions.testMultiCollinearity import excludeMult
 from RAnalysis.RTools.ExtractCoefficients import dropOnlyNanColumns
 from RAnalysis.RTools.GenerateModels import createDFModel
 
+
+# To be applied for all 2nd Level Models
+
+# Remove non-normal dependent variables
 listDf = []
 for stock in companyIdentifier:
     df = createDFModel(stock, 2)
@@ -16,23 +20,24 @@ for df in listDf:
     normalListDf.append(normalDf)
 print('Original number of stocks: ' + str(len(listDf)))
 print('Number of stocks following normality: ' + str(len(normalListDf)))
-# RESULT: no stock was excluded for confidence level --> fat-tail problematic #
+# RESULT: all stocks were excluded --> fat-tail problematic --> normality is assumed
 
-# heteroscedasticity test for linear regression models #
+# Exclude all heteroscedastic Models
 nonHeteroscedasticityList = []
 for df in listDf:
     nonHeteroscedasticityDf = excludeHeteroscedasticity(df)
     nonHeteroscedasticityList.append(nonHeteroscedasticityDf)
 
-# if there is Heteroscedasticity, None value is returned --> remove #
+# if there is Heteroscedasticity, None value is returned --> remove all None objects
 cleanNonHeteroscedasticityList = []
 for df in nonHeteroscedasticityList:
     if df is not None:
         cleanNonHeteroscedasticityList.append(df)
 print('Number of stocks without heteroscedasticity:' + str(len(cleanNonHeteroscedasticityList)))
-# RESULT: Breusch Pagan Test led to the exclusion of 193 stocks #
+# RESULT: Breusch Pagan Test led to the exclusion of 330 stocks #
 
-# test for multicollinearity and remove columns of dataframes a VIF factor higher than 5 #
+# test for multicollinearity and remove columns of dataframes a VIF factor higher than 10
+# (use 10 to keep greater number of ESG factors)
 numberOfColumnsBefore = 0
 nonMultiColList = []
 for df in cleanNonHeteroscedasticityList:
@@ -49,8 +54,10 @@ for df in nonMultiColList:
 
 print('Number of columns before removing multicollinearity ' + str(numberOfColumnsBefore))
 print('Number of columns after removing multicollinearity ' + str(numberOfColumnsAfter))
-# RESULT: no factors were removed due to multicollinearity #
+# RESULT: 206 factors were removed due to multicollinearity #
 
+
+# calculate how many Environment, Social and Governance factors remain in the filtered models
 cleanListOfDf = dropOnlyNanColumns(nonMultiColList)
 
 listOfSurvivors = []

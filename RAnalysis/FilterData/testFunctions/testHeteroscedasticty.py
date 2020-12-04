@@ -3,8 +3,9 @@ from statsmodels.stats.diagnostic import het_breuschpagan
 from statsmodels.formula.api import ols
 
 
-# Breusch Pagan Test #
-# https://www.statology.org/breusch-pagan-test-python/ look up to reduce number of excluded stocks #
+# Breusch-Pagan Test for Heteroscedasticity
+
+# return bool whether model has heteroscedasticity
 def hasHeteroscedasticity(dataFrame):
     columns = dataFrame.columns
     f = columns[0] + '~'
@@ -27,6 +28,7 @@ def hasHeteroscedasticity(dataFrame):
         pass
 
 
+# return dataFrame if homoscedastic and None otherwise
 def excludeHeteroscedasticity(dataFrame):
     if not hasHeteroscedasticity(dataFrame):
         return dataFrame

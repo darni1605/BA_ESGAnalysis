@@ -37,26 +37,6 @@ GovernanceScore_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorar
                                  , sep=';', header=0, index_col=0)
 GovernanceScore_df.replace(r'^\s*$', np.nan, regex=True)
 
-OverallESGScores_changes_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                                          r'Data\CSV-files\Reuters_OverallESGScores_changes_csv.csv', sep=';', header=0,
-                                          index_col=0)
-OverallESGScores_changes_df.replace(r'^\s*$', np.nan, regex=True)
-
-EnvironmentScores_changes_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                                           r'Data\CSV-files\Reuters_EnvironmentScores_changes_csv.csv', sep=';',
-                                           header=0, index_col=0)
-EnvironmentScores_changes_df.replace(r'^\s*$', np.nan, regex=True)
-
-SocialScores_changes_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                                      r'Data\CSV-files\Reuters_SocialScores_changes_csv.csv', sep=';',
-                                      header=0, index_col=0)
-SocialScores_changes_df.replace(r'^\s*$', np.nan, regex=True)
-
-GovernanceScores_changes_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                                          r'Data\CSV-files\Reuters_GovernanceScores_changes_csv.csv', sep=';',
-                                          header=0, index_col=0)
-GovernanceScores_changes_df.replace(r'^\s*$', np.nan, regex=True)
-
 famaFrench_RiskFactors_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
                                         r'Data\CSV-files\FamaFrench_RiskFactors_csv.csv'
                                         , sep=';', header=0, index_col=0)
@@ -67,26 +47,17 @@ sp500_Industries = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbe
 
 industries_df = sp500_Industries.iloc[:, 1].unique()
 
-eventList_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                           r'Data\CSV-files\EventList_SP500_Stocks_csv.csv')
-eventListTypes_df = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
-                                r'Data\CSV-files\EventTypeList_csv.csv')
-
-# join eventList with eventListTypes #
-eventListTypes2_df = eventListTypes_df[['EventType', 'DaysToExclude']]
-eventList2_df = eventList_df[['Date', 'Identifier', 'EventType']]
-mergedEventList2_df = eventList2_df.merge(eventListTypes2_df, how='inner')
-
 # extract Fama & French risk factors #
 marketPremium = famaFrench_RiskFactors_df.iloc[:, 0]
 SMB = famaFrench_RiskFactors_df.iloc[:, 1]
 HML = famaFrench_RiskFactors_df.iloc[:, 2]
 riskFree = famaFrench_RiskFactors_df.iloc[:, 3]
 
+# list of all stock tickers and original amount of input stocks
 companyIdentifier = list(stockReturns_df)
 nrOfColumns = len(stockPrices_df.columns)
 
-# stock grouped in industries
+# import stock returns grouped per industry (1st Level)
 communicationServicesStocks_lvl1 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
                                                r'Data\CSV-files\StockReturnsPerIndustry_lvl1\'Communication '
                                                r'Services.csv '
@@ -128,6 +99,7 @@ listOfStocksPerIndustry_lvl1 = [communicationServicesStocks_lvl1, consumerDiscre
                                 healthCareStocks_lvl1, industrialsStocks_lvl1, informationTechnologyStocks_lvl1,
                                 materialsStocks_lvl1, realEstateStocks_lvl1, utilitiesStocks_lvl1]
 
+# create list of all stock tickers per industry (1st Level)
 communicationServicesStocks_lvl1 = listOfStocksPerIndustry_lvl1[0].columns
 consumerDiscretionaryStocks_lvl1 = listOfStocksPerIndustry_lvl1[1].columns
 consumerStaplesStocks_lvl1 = listOfStocksPerIndustry_lvl1[2].columns
@@ -140,6 +112,7 @@ materialsStocks_lvl1 = listOfStocksPerIndustry_lvl1[8].columns
 realEstateStocks_lvl1 = listOfStocksPerIndustry_lvl1[9].columns
 utilitiesStocks_lvl1 = listOfStocksPerIndustry_lvl1[10].columns
 
+# import stock returns grouped per industry (2nd Level)
 communicationServicesStocks_lvl2 = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
                                                r'Data\CSV-files\StockReturnsPerIndustry_lvl2\'Communication '
                                                r'Services.csv '
@@ -182,6 +155,7 @@ listOfStocksPerIndustry_lvl2 = [communicationServicesStocks_lvl2, consumerDiscre
                                 healthCareStocks_lvl2, industrialsStocks_lvl2, informationTechnologyStocks_lvl2,
                                 materialsStocks_lvl2, realEstateStocks_lvl2, utilitiesStocks_lvl2]
 
+# create list for stock tickers per industry
 communicationServicesStocks_lvl2 = listOfStocksPerIndustry_lvl1[0].columns
 consumerDiscretionaryStocks_lvl2 = listOfStocksPerIndustry_lvl1[1].columns
 consumerStaplesStocks_lvl2 = listOfStocksPerIndustry_lvl1[2].columns
@@ -194,6 +168,8 @@ materialsStocks_lvl2 = listOfStocksPerIndustry_lvl1[8].columns
 realEstateStocks_lvl2 = listOfStocksPerIndustry_lvl1[9].columns
 utilitiesStocks_lvl2 = listOfStocksPerIndustry_lvl1[10].columns
 
+
+# import prepared csv files for visualization interface
 filteredStockReturns = pd.read_csv(r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw '
                                    r'Data\CSV-files\FilteredStocks\FilteredStocksReturns.csv'
                                    , sep=';', header=0, index_col=0)

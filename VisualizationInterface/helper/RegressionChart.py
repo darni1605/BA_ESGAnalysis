@@ -1,7 +1,7 @@
-import numpy as np
 from ImportFilesPackages.ImportFiles import *
 
 
+# for a given stock, return its model as string for a chosen model level (Legend for linear regression graph)
 def getModelString(stock, level):
     if level == 1:
         columnNames = survivingStockModels1stLevel.loc[survivingStockModels1stLevel['Stock'] == stock].values
@@ -15,6 +15,7 @@ def getModelString(stock, level):
     return modelString
 
 
+# prepare data set for linear regression chart
 def prepareDataSet(stock, level):
     dataSet = []
     modelString = getModelString(stock, level)

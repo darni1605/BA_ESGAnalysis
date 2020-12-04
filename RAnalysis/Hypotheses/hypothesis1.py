@@ -5,8 +5,7 @@ from RAnalysis.RTools.ExtractCoefficients import *
 from RAnalysis.FilterData.filterDataLevel1 import nonMultiColList
 from RAnalysis.FilterData.testFunctions.testGaussianNormality import isNormal
 
-# extract the stock tickers of all data filtering survivors #
-
+# extract all ESG Betas and do hypothesis testing
 listOfDfs = dropOnlyNanColumns(nonMultiColList)
 extractedSummaries = extractSummaries(listOfDfs)
 extractedCoefficients = extractCoefficients(extractedSummaries)

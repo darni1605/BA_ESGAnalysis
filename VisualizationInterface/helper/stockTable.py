@@ -3,6 +3,7 @@ from ImportFilesPackages.ImportFiles import stockReturns_df, OverallESGScores_df
 import numpy as np
 
 
+# return all industries as list with their stock constituents
 def groupPerIndustry(industry):
     i = 0
     industryGroups = []
@@ -16,6 +17,7 @@ def groupPerIndustry(industry):
     return industryGroups
 
 
+# return all stock table info for the performance comparison chart
 def getStockTableInfo(stock, comparable, comparableName):
     stockReturns = stockReturns_df[stock]
     stockESGScore = OverallESGScores_df[stock + 'ESGScore']

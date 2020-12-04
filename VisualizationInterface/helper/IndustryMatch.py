@@ -1,12 +1,14 @@
 from ImportFilesPackages.ImportFiles import *
 
 
+# get mean return for industry group
 def getMeanReturnColumn(industryStocks):
     industryStockReturns = stockReturns_df[industryStocks].copy()
     industryStockReturns['MeanReturn'] = industryStockReturns.mean(axis=1)
     return industryStockReturns['MeanReturn']
 
 
+# return industry and mean return for given stock
 def industryMatch(stock):
     if stock in communicationServicesStocks_lvl1:
         return 'Communication Services', getMeanReturnColumn(communicationServicesStocks_lvl1)

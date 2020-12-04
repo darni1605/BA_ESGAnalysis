@@ -8,6 +8,7 @@ from statsmodels.formula.api import ols
 from RAnalysis.RTools.GenerateModels import createDFModel
 
 
+# return a histogram of a data sample
 def histogram(dataToPlot, title, xLabel, yLabel):
     plot.hist(dataToPlot, density=True, bins='auto')
     plot.xlabel(xLabel)
@@ -17,7 +18,7 @@ def histogram(dataToPlot, title, xLabel, yLabel):
 
 
 # make all plots using matplotlib, r plots crash ##
-
+# return a residual Diagram for a chosen stock, factor and model level
 def residualDiagram(stock, columnNrToPlot, level):
     stockDF = createDFModel(stock, level)
     y = stockDF.columns[0]
@@ -32,6 +33,7 @@ def residualDiagram(stock, columnNrToPlot, level):
     fig.show()
 
 
+# return standardized residual diagram for chosen stock and model level
 def standardizedResidualDiagram(stock, level):
     stockDF = createDFModel(stock, level)
     y = stockDF.columns[0]
@@ -67,6 +69,7 @@ def standardizedResidualDiagram(stock, level):
     plot.show()
 
 
+# only works for 1st level, illustration quite bad --> not usable
 def cooksDistance(dataFrame):
     y = dataFrame.columns[0]
     x1 = dataFrame.columns[1]
@@ -80,7 +83,8 @@ def cooksDistance(dataFrame):
     fig.show()
 
 
-def probabilityPlot(stock, factorToPlot):
-    stockDF = createDFModel(stock)
+# not working
+def probabilityPlot(stock, factorToPlot, level):
+    stockDF = createDFModel(stock, level)
     probplot(stockDF[factorToPlot], dist='norm', plot=plot)
     plot.show()

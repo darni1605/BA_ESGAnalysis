@@ -4,6 +4,7 @@ from ImportFilesPackages.ImportRPackages import base
 from RAnalysis.RTools.GenerateModels import createRModel
 
 
+# drop all columns where every row has at least one nan
 def dropOnlyNanColumns(listOfDf):
     cleanListOfDf = []
     for df in listOfDf:
@@ -20,6 +21,7 @@ def dropOnlyNanColumns(listOfDf):
     return cleanListOfDf
 
 
+# extract all R summaries for list of dataframes
 def extractSummaries(listOfDf):
     pandas2ri.activate()
     summaries = []
@@ -30,6 +32,7 @@ def extractSummaries(listOfDf):
     return summaries
 
 
+# extract all Coefficients from R summaries
 def extractCoefficients(summaries):
     coefficients = []
     for summary in summaries:
@@ -38,6 +41,7 @@ def extractCoefficients(summaries):
     return coefficients
 
 
+# extract all ESG Betas from coefficients list
 def extractESGBetas(listOfCoefficients):
     ESGBetas = np.empty(0)
     for coefficient in listOfCoefficients:
@@ -49,6 +53,7 @@ def extractESGBetas(listOfCoefficients):
     return ESGBetas
 
 
+# extract all ESG p-values from coefficients list
 def extractESGBetasPValue(listOfCoefficients):
     pValues = np.empty(0)
     for coefficient in listOfCoefficients:
@@ -60,6 +65,7 @@ def extractESGBetasPValue(listOfCoefficients):
     return pValues
 
 
+# extract the p-value of either Environment, Social or Governance factor
 def extractSubScorePValue(coefficient, position):
     try:
         subScoreBetaPValue = coefficient[position, 3]
@@ -68,7 +74,8 @@ def extractSubScorePValue(coefficient, position):
     return subScoreBetaPValue
 
 
-def extractSubScore(coefficient, position):
+# extract the Beta of either Environment, Social or Governance factor
+def extractSubScoreBeta(coefficient, position):
     try:
         subScoreBeta = coefficient[position, 0]
     except IndexError:
@@ -76,7 +83,8 @@ def extractSubScore(coefficient, position):
     return subScoreBeta
 
 
-def extractSubScores(listOfColumnNames, extractedCoefficients):
+# extract all betas of subscore, account for varying factor amount due to removal of multicollinearity
+def extractSubScoresBetas(listOfColumnNames, extractedCoefficients):
     envBetas = np.empty(0)
     envPValues = np.empty(0)
     socBetas = np.empty(0)
@@ -89,41 +97,42 @@ def extractSubScores(listOfColumnNames, extractedCoefficients):
         currentSocColumnName = stock + 'SocialScore'
         currentGovColumnName = stock + 'GovernanceScore'
         if len(listOfColumnNames[i]) == 7:
-            envBetas = np.append(envBetas, extractSubScore(extractedCoefficients[i], 4))
+            envBetas = np.append(envBetas, extractSubScoreBeta(extractedCoefficients[i], 4))
             envPValues = np.append(envPValues, extractSubScorePValue(extractedCoefficients[i], 4))
-            socBetas = np.append(socBetas, extractSubScore(extractedCoefficients[i], 5))
+            socBetas = np.append(socBetas, extractSubScoreBeta(extractedCoefficients[i], 5))
             socPValues = np.append(socPValues, extractSubScorePValue(extractedCoefficients[i], 5))
-            govBetas = np.append(govBetas, extractSubScore(extractedCoefficients[i], 6))
+            govBetas = np.append(govBetas, extractSubScoreBeta(extractedCoefficients[i], 6))
             govPValues = np.append(govPValues, extractSubScorePValue(extractedCoefficients[i], 6))
         if len(listOfColumnNames[i]) == 6:
             if currentEnvColumnName not in listOfColumnNames[i]:
-                socBetas = np.append(socBetas, extractSubScore(extractedCoefficients[i], 4))
+                socBetas = np.append(socBetas, extractSubScoreBeta(extractedCoefficients[i], 4))
                 socPValues = np.append(socPValues, extractSubScorePValue(extractedCoefficients[i], 4))
-                govBetas = np.append(govBetas, extractSubScore(extractedCoefficients[i], 5))
+                govBetas = np.append(govBetas, extractSubScoreBeta(extractedCoefficients[i], 5))
                 govPValues = np.append(govPValues, extractSubScorePValue(extractedCoefficients[i], 5))
             elif currentSocColumnName not in listOfColumnNames[i]:
-                envBetas = np.append(envBetas, extractSubScore(extractedCoefficients[i], 4))
+                envBetas = np.append(envBetas, extractSubScoreBeta(extractedCoefficients[i], 4))
                 envPValues = np.append(envPValues, extractSubScorePValue(extractedCoefficients[i], 4))
-                govBetas = np.append(govBetas, extractSubScore(extractedCoefficients[i], 5))
+                govBetas = np.append(govBetas, extractSubScoreBeta(extractedCoefficients[i], 5))
                 govPValues = np.append(govPValues, extractSubScorePValue(extractedCoefficients[i], 5))
             elif currentGovColumnName not in listOfColumnNames[i]:
-                envBetas = np.append(envBetas, extractSubScore(extractedCoefficients[i], 4))
+                envBetas = np.append(envBetas, extractSubScoreBeta(extractedCoefficients[i], 4))
                 envPValues = np.append(envPValues, extractSubScorePValue(extractedCoefficients[i], 4))
-                socBetas = np.append(socBetas, extractSubScore(extractedCoefficients[i], 5))
+                socBetas = np.append(socBetas, extractSubScoreBeta(extractedCoefficients[i], 5))
                 socPValues = np.append(socPValues, extractSubScorePValue(extractedCoefficients[i], 5))
         elif len(listOfColumnNames[i]) == 5:
             if currentEnvColumnName in listOfColumnNames[i]:
-                envBetas = np.append(envBetas, extractSubScore(extractedCoefficients[i], 4))
+                envBetas = np.append(envBetas, extractSubScoreBeta(extractedCoefficients[i], 4))
                 envPValues = np.append(envPValues, extractSubScorePValue(extractedCoefficients[i], 4))
             elif currentSocColumnName in listOfColumnNames[i]:
-                socBetas = np.append(socBetas, extractSubScore(extractedCoefficients[i], 4))
+                socBetas = np.append(socBetas, extractSubScoreBeta(extractedCoefficients[i], 4))
                 socPValues = np.append(socPValues, extractSubScorePValue(extractedCoefficients[i], 4))
             elif currentGovColumnName in listOfColumnNames[i]:
-                govBetas = np.append(govBetas, extractSubScore(extractedCoefficients[i], 4))
+                govBetas = np.append(govBetas, extractSubScoreBeta(extractedCoefficients[i], 4))
                 govPValues = np.append(govPValues, extractSubScorePValue(extractedCoefficients[i], 4))
     return envBetas, envPValues, socBetas, socPValues, govBetas, govPValues
 
 
+# extract all Adjusted R squared from summaries
 def extractAdjustedRSquared(summaries):
     listOfRSquared = []
     for summary in summaries:
@@ -131,6 +140,7 @@ def extractAdjustedRSquared(summaries):
     return listOfRSquared
 
 
+# calculate percentages of occurrences of R squared for 4 limits
 def distributionOfRSquared(listOfRSquared):
     limit1 = 0.25
     limit2 = 0.5
@@ -159,6 +169,7 @@ def distributionOfRSquared(listOfRSquared):
     return perGroup1, perGroup2, perGroup3, perGroup4
 
 
+# drop ESG factor from models to calculate Adjusted R squared without sustainability factors
 def dropESGScoresFromModel(listOfDfs, level):
     newListOfDfs = []
     if level == 1:
@@ -183,6 +194,7 @@ def dropESGScoresFromModel(listOfDfs, level):
     return newListOfDfs
 
 
+# count amount of significant coefficients
 def countSignificantFactors(pValueList, significanceLevel):
     significanceCount = 0
     noSignificanceCount = 0
@@ -194,6 +206,7 @@ def countSignificantFactors(pValueList, significanceLevel):
     return significanceCount, noSignificanceCount
 
 
+# apply IQR rule to data sample and exclude outliers
 def excludeOutliers(data):
     Q1 = np.nanquantile(data, 0.25)
     Q3 = np.nanquantile(data, 0.75)

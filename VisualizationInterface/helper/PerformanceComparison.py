@@ -5,6 +5,7 @@ from ImportFilesPackages.ImportFiles import stockReturns_df
 from VisualizationInterface.helper.CreateChart import createHighstock
 
 
+# create PerformanceComparison chart with chosen comparable (market or industry)
 def PerformanceComparisonChart(stock, comparableName, comparableReturns, chartID):
     stockReturns = stockReturns_df[stock]
     stockReturns = stockReturns[~np.isnan(stockReturns)]

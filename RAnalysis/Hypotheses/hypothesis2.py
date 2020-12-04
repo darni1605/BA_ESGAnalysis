@@ -3,8 +3,9 @@ from ImportFilesPackages.ImportFiles import stockReturns_df
 from RAnalysis.FilterData.filterDataLevel1 import nonMultiColList
 from RAnalysis.FilterData.GroupData.splitAccordingToESG import filterESGScores, groupAccordingToAverage
 from RAnalysis.FilterData.testFunctions.testGaussianNormality import isNormal
-from RAnalysis.RTools.ConductHypoTest import conductHypoTest
+from RAnalysis.RTools.ConductHypoTestAboveBelowGroups import conductHypoTest
 from RAnalysis.RTools.PrintRSummary import printDataSetSummary
+
 
 # group all stocks into a below & above ESG market average and test underperformance/outperformance compared to market
 
@@ -22,21 +23,21 @@ aboveGroupMeanReturn = aboveGroupMeanReturn[~np.isnan(aboveGroupMeanReturn)]
 belowGroupMeanReturn = belowGroupMeanReturn[~np.isnan(belowGroupMeanReturn)]
 marketMeanReturn = marketMeanReturn[~np.isnan(marketMeanReturn)]
 
-print('Market Returns summary:')
+print('\nMarket Returns summary:')
 printDataSetSummary(marketMeanReturn)
 
-print('Above Market Average group summary:')
+print('\nAbove Market Average group summary:')
 printDataSetSummary(aboveGroupMeanReturn)
 
-print('Below Market Average group summary:')
+print('\nBelow Market Average group summary:')
 printDataSetSummary(belowGroupMeanReturn)
 
+
+print('\nIs above group normal? ' + str(isNormal(aboveGroupMeanReturn, 0.90)))
+print('Is below group normal? ' + str(isNormal(belowGroupMeanReturn, 0.90)))
+print('Is market group normal? ' + str(isNormal(marketMeanReturn, 0.90)))
 print('All lists with average return are, because of fat-tails, not normally distributed. As a simplification, '
       'we assume normality as the histogram follows by eye a normal distribution.')
-
-print(isNormal(aboveGroupMeanReturn, 0.90))
-print(isNormal(belowGroupMeanReturn, 0.90))
-print(isNormal(marketMeanReturn, 0.90))
 
 # H2
 print('\nH3: Is there an underperformance of stocks below market ESG average compared to the market?')

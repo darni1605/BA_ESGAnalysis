@@ -1,6 +1,8 @@
 import pandas as pd
 import glob
 
+
+# after saving randomly split stock returns for H4, reimport
 path = r'C:\Users\domin\UniversitaetZuerich\Bachelorarbeit\Raw Data\RandomSamples'
 allFiles = glob.glob(path + '/*.csv')
 

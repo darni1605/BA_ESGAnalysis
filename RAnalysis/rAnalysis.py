@@ -1,8 +1,10 @@
 import numpy as np
-from RAnalysis.RTools.ExtractCoefficients import dropOnlyNanColumns, extractSummaries, extractAdjustedRSquared, distributionOfRSquared, dropESGScoresFromModel
+from RAnalysis.RTools.ExtractCoefficients import dropOnlyNanColumns, extractSummaries, extractAdjustedRSquared, \
+    distributionOfRSquared, dropESGScoresFromModel
 from RAnalysis.FilterData.filterDataLevel1 import nonMultiColList
 from RAnalysis.FilterData.filterDataLevel2 import cleanListOfDf
 
+# Check how the inclusion of ESG factors changes the models predictive expressiveness
 
 # R squared distribution: 1st Level
 listOfDf1 = dropOnlyNanColumns(nonMultiColList)
