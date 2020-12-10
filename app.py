@@ -5,11 +5,11 @@ from VisualizationInterface.helper.PerformanceComparison import PerformanceCompa
 from VisualizationInterface.helper.stockTable import getStockTableInfo
 from VisualizationInterface.helper.RegressionChart import getModelString, prepareDataSet
 from VisualizationInterface.helper.industryBarChartSetup import prepareBarDataSetPerIndustry
+from VisualizationInterface.helper.IndustryMatch import industryMatch
 from ImportFilesPackages.ImportFiles import *
 
 from flask import Flask, render_template, request, json
 
-from VisualizationInterface.helper.IndustryMatch import industryMatch
 
 app = Flask(__name__)
 
