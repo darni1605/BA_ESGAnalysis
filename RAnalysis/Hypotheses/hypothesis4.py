@@ -36,16 +36,19 @@ avgHighGroupReturn = np.mean(highGroupReturns['averageReturn'])
 medianHighGroupReturn = np.nanmedian(highGroupReturns['averageReturn'])
 
 print('\nSummary of Low group average Returns:')
+print('Number of stocks: ' + str(len(lowGroup)))
 printDataSetSummary(avgLowGroupReturns)
 print('\nSummary of Medium group average Returns:')
+print('Number of stocks: ' + str(len(mediumGroup)))
 printDataSetSummary(avgMediumGroupReturns)
 print('\nSummary of High group average Returns:')
+print('Number of stocks: ' + str(len(highGroup)))
 printDataSetSummary(avgHighGroupReturns)
 
-print(len(lowGroup)), print(len(mediumGroup)), print(len(highGroup))
-print(isNormal(avgLowGroupReturns, 0.90))
-print(isNormal(avgMediumGroupReturns, 0.90))
-print(isNormal(avgHighGroupReturns, 0.90))
+
+print('\nIs Low Group normal? ' + str(isNormal(avgLowGroupReturns, 0.90)))
+print('Is Medium Group normal? ' + str(isNormal(avgMediumGroupReturns, 0.90)))
+print('Is High Group normal? ' + str(isNormal(avgHighGroupReturns, 0.90)))
 
 print('\nBecause of fat-tails, all average return lists are not normally distributed. Assumption: they are!')
 

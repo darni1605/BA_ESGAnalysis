@@ -24,12 +24,15 @@ belowGroupMeanReturn = belowGroupMeanReturn[~np.isnan(belowGroupMeanReturn)]
 marketMeanReturn = marketMeanReturn[~np.isnan(marketMeanReturn)]
 
 print('\nMarket Returns summary:')
+print('Number of stocks: ' + str(len(nonMultiColList)))
 printDataSetSummary(marketMeanReturn)
 
 print('\nAbove Market Average group summary:')
+print('Number of stocks: ' + str(len(aboveMarketESGAverageGroup)))
 printDataSetSummary(aboveGroupMeanReturn)
 
 print('\nBelow Market Average group summary:')
+print('Number of stocks: ' + str(len(belowMarketESGAverageGroup)))
 printDataSetSummary(belowGroupMeanReturn)
 
 

@@ -88,15 +88,15 @@ def makeH12(listOfModels, title):
     print('Env Beta with and without outliers:')
     printDataSetSummary(envBeta_df)
     printDataSetSummary(envBetaWithoutOutliers_df)
-    print('Percentage of individual significant Env Betas: ' + str(envPercentage) + '%%')
+    print('Percentage of individual significant Env Betas: ' + str(envPercentage) + '%')
     print('\nSoc Beta with and without outliers:')
     printDataSetSummary(socBeta_df)
     printDataSetSummary(socBetaWithoutOutliers_df)
-    print('Percentage of individual significant Soc Betas: ' + str(socPercentage) + '%%')
+    print('Percentage of individual significant Soc Betas: ' + str(socPercentage) + '%')
     print('\nGov Beta with and without outliers:')
     printDataSetSummary(govBeta_df)
     printDataSetSummary(govBetaWithoutOutliers_df)
-    print('Percentage of individual significant Gov Betas: ' + str(govPercentage) + '%%')
+    print('Percentage of individual significant Gov Betas: ' + str(govPercentage) + '%')
     print('\n')
 
 

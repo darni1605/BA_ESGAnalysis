@@ -33,7 +33,7 @@ print('Percentages R Squared with and without ESG > 0.5, <= 0.75: %2.2f%% & %2.2
 print('Percentages R Squared with and without ESG > 0.75: %2.2f%% & %2.2f%%' % (perDistR4, perDistR4WithoutESG))
 
 
-# R squared distribution: 2st Level
+# R squared distribution: 2nd Level
 listOfDf2 = dropOnlyNanColumns(cleanListOfDf)
 listOfDf2WithoutESG = dropESGScoresFromModel(listOfDf2, level=2)
 summaries2 = extractSummaries(listOfDf2)
