@@ -42,7 +42,8 @@ def conductHypoTest(group, models, isLow):
         print('Below average group mean return: %6.6f & comparable mean return: %6.6f' % (avgGroup, avgIndustry))
         print('Below average group median return: %6.6f & comparable median return: %6.6f' % (medianGroup,
                                                                                               medianIndustry))
-        if len(group) >= 50:
+        if len(avgGroupReturns) >= 50:
+            print('Normal: ' + str(isNormal(avgGroupReturns, 0.99)))
             tTest1 = ttest_1samp(avgGroupReturns, avgIndustry)
             pValue = 1 - tTest1.pvalue / 2
             print('t-statistic = %6.3f pValue = %6.4f' % (tTest1.statistic, pValue))
@@ -56,7 +57,8 @@ def conductHypoTest(group, models, isLow):
         print('Above average group mean return: %6.6f & comparable mean return: %6.6f' % (avgGroup, avgIndustry))
         print('Above average group median return: %6.6f & comparable median return: %6.6f' % (medianGroup,
                                                                                               medianIndustry))
-        if len(group) >= 50:
+        if len(avgGroupReturns) >= 50:
+            print('Normal: ' + str(isNormal(avgGroupReturns, 0.99)))
             tTest1 = ttest_1samp(avgGroupReturns, avgIndustry)
             pValue = tTest1.pvalue / 2
             print('t-statistic = %6.3f pValue = %6.4f' % (tTest1.statistic, pValue))

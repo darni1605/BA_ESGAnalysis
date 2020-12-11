@@ -75,6 +75,7 @@ conductHypoTest(highGroup7, industrialsModels, isLow=False)
 
 print('\nInformation Technology')
 print('Number of stocks Above Group: ' + str(len(highGroup8)))
+conductHypoTest(highGroup8, informationTechnologyModels, isLow=False)
 
 print('\nMaterials')
 print('Number of stocks Above Group: ' + str(len(highGroup9)))

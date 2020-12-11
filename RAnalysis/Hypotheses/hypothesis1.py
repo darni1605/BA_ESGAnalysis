@@ -1,7 +1,6 @@
 import pandas as pd
 from scipy.stats import ttest_1samp
 
-from RAnalysis.RTools.PlotGraphs import histogram
 from RAnalysis.RTools.PrintRSummary import printDataSetSummary
 from RAnalysis.RTools.ExtractCoefficients import *
 from RAnalysis.FilterData.filterDataLevel1 import nonMultiColList

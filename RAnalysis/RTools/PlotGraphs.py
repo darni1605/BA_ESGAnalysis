@@ -10,7 +10,7 @@ from RAnalysis.RTools.GenerateModels import createDFModel
 
 # return a histogram of a data sample
 def histogram(dataToPlot, title, xLabel, yLabel):
-    plot.hist(dataToPlot, density=True, bins='auto')
+    plot.hist(dataToPlot, density=False, bins='auto')
     plot.xlabel(xLabel)
     plot.ylabel(yLabel)
     plot.title(title)
